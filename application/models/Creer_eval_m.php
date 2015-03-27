@@ -34,24 +34,6 @@ class Creer_eval_m extends CI_Model{
         return $result;
         
     }
-}
-
-    
-//    public function getSession() {
-//        $query = $this->db->query("SELECT id_session AS value, nom AS text FROM session");
-//        return $query->row_array();
-//        
-//    }
-//    public function getModule($idSession) {
-//        $query = $this->db->query("SELECT id_module AS value, nom AS text FROM module");
-//        return $query->row_array();
-//        
-//    }
-//    public function getFormateur($idPersonne) {
-//        $query = $this->db->query("SELECT f.id_personne AS value, nom AS text FROM personne p INNER JOIN formateur f ON p.id_personne = f.id_personne");
-//        return $query->row_array();
-//        
-//    }
-//    
+}   
     
 

@@ -14,7 +14,7 @@
             <ul>
                 <?php 
                     foreach ($sessions as $session) {
-                        echo "<li>$session[nom]</li>";
+                        echo "<li>$session</li>";
                     }
                 ?>
             </ul>

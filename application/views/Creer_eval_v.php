@@ -16,16 +16,22 @@
             <header id = "creation_evaluation" method = "POST">
                 <h1>Création d'une évaluation</h1>
             </header>
-            
-            <form method = "POST" id="formulaire_evaluation">
-                <label id = "session"> Choisir la session concernée :</label>
-                <?= form_dropdown('id_session', $sessions); ?>
-                
-                <label id="module">Choisir la session concernée</label>
-                <?= form_dropdown('id_module', $module); ?>
 
-                <label id = "date"> Choisir la date de l'évaluation :</label>
-                <input type="text" name="dateevaluation" placeholder="Date de l'évaluation" data-beatpicker="true" data-beatpicker-position="['10','50']"  data-beatpicker-extra="customOptions" data-beatpicker-format="['YYYY','MM','DD'],separator:'/'" data-beatpicker-module="icon">
+            <form method = "POST" id="formulaire_evaluation">
+                <label id = "session"> Session : </label>
+                <?= form_dropdown('id_session', $sessions); ?>
+                <br/>
+                <label id="module">Discipline : </label>
+                <?= form_dropdown('id_module', $modules); ?>
+
+                <br:>
+                    <label id="formateur">Choisir le formateur concerné</label>
+                    <?= form_dropdown('id_formateur', $formateurs); ?>
+
+
+
+                    <label id = "date"> Choisir la date de l'évaluation :</label>
+                    <input type="text" name="dateevaluation" placeholder="Date de l'évaluation" data-beatpicker="true" data-beatpicker-position="['10','50']"  data-beatpicker-extra="customOptions" data-beatpicker-format="['YYYY','MM','DD'],separator:'/'" data-beatpicker-module="icon">
 
                     <script type="text/javascript">
                         customOptions = {
@@ -33,12 +39,12 @@
                             daysSimple: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
                         }
                     </script>
-                    
+
                     <input type="submit" name="ok" value="Valider">
                     <input type="reset" name="annulerSaisie" value="Annuler">
-            </form>
-        </section>
+                    </form>
+                    </section>
 
 
-    </body>
-</html>
+                    </body>
+                    </html>

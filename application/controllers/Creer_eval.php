@@ -1,20 +1,19 @@
 <?php
 
-class Creer_eval extends CI_Controller {
+class Creer_eval extends FormController {
 
-  public function __construct() {
+    public function __construct() {
         parent::__construct();
-        $this->load->model('Creer_eval_m');
     }
-    
-    public function Index() {
-       $this->load->helper(array('form', 'url'));
-       $data["sessions"] = $this->Creer_eval_m->getSessions();
-       $this->load->view('Creer_eval_v', $data);
-    }
-    
-    
-    
-}
 
-     
+    public function print_form() {
+        $data["sessions"] = $this->Creer_eval_m->getSessions();
+        $this->load->view('Creer_eval_v', $data);
+      
+    }
+
+    public function process_form() {
+        die("pas encore fait");
+    }
+
+}

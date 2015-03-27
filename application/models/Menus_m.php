@@ -4,7 +4,13 @@
  * Modele fournissant les données pour des listes déroulantes
  */
 class Menus_m extends CI_Model {
-    
+
+  /** Charge le module database de CI */
+  public function __construct() {
+    parent::__construct();
+    $this->load->database();
+  }
+
   /** Fonction de base fournissant une liste de données
    * sous forme d'un tableau associatif value => text
    * (ex : (1 => "BTS SIO", 2 => "BTS IRIS")

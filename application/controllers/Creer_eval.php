@@ -13,10 +13,12 @@ class Creer_eval extends FormController {
     // Recuperer les sessions
     $data["sessions"] = $this->Menus_m->getSessionsEnCours();
     // Puis les modules de la session (si positionnée)
-    $idSession = filter_input(INPUT_GET, "idSession");
-    $data["modules"] = ($idSession == NULL)
-            ? array()
-            : $this->Menus_m->getModules($idSession);
+//    $idSession = filter_input(INPUT_GET, "idSession");
+//    $data["modules"] = ($idSession == NULL)
+//            ? array()
+//            : $this->Menus_m->getModulesByIdSession($idSession);
+    // Modules (toutes formations confondues => a ameliorer)
+    $data["modules"] = $this->Menus_m->getModules();
     // Puis les formateurs (peut-être à filtrer par module)
     $data["formateurs"] = $this->Menus_m->getFormateurs();
     // Afficher la vue en s'aidant du helper form

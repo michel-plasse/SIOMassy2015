@@ -23,8 +23,8 @@ abstract class FormController extends CI_Controller {
     }
 
     /** Affiche le formulaire */
-    public abstract function print_form();
-    
+    abstract public function print_form();
+
     /** Traitement du formulaire */
-    public abstract function process_form();
+    abstract public function process_form();
 }

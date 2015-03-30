@@ -1,357 +1,388 @@
 DELIMITER $$
-DROP SCHEMA IF EXISTS `db524752934` ;
+DROP SCHEMA IF EXISTS db524752934 $$
+CREATE SCHEMA IF NOT EXISTS db524752934 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci $$
+USE db524752934 $$
 
 -- -----------------------------------------------------
--- Schema db524752934
+-- Table db524752934.personne
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `db524752934` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `db524752934` ;
+DROP TABLE IF EXISTS db524752934.personne $$
 
--- -----------------------------------------------------
--- Table `db524752934`.`personne`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`personne` (
-  `id_personne` INT NOT NULL AUTO_INCREMENT,
-  `civilite` VARCHAR(3) NOT NULL,
-  `prenom` VARCHAR(20) NOT NULL,
-  `nom` VARCHAR(30) NOT NULL,
-  `adresse` VARCHAR(45) NULL,
-  `code_postal` VARCHAR(5) NULL,
-  `ville` VARCHAR(30) NULL,
-  `telephone` VARCHAR(15) NULL,
-  `telephone2` VARCHAR(15) NULL,
-  `email` VARCHAR(30) NOT NULL,
-  `mot_passe` VARCHAR(45) NOT NULL,
-  `date_inscription` DATETIME NOT NULL DEFAULT NOW() COMMENT 'Date où la personne s\'est inscrite (avant la validation)',
-  `est_inscrite` TINYINT(1) NOT NULL DEFAULT FALSE COMMENT 'Vrai quand l\'inscription est valdée',
-  PRIMARY KEY (`id_personne`),
-  UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB;
+CREATE TABLE IF NOT EXISTS db524752934.personne (
+  id_personne INT NOT NULL AUTO_INCREMENT,
+  civilite VARCHAR(3) NOT NULL,
+  prenom VARCHAR(20) NOT NULL,
+  nom VARCHAR(30) NOT NULL,
+  adresse VARCHAR(45) NULL,
+  code_postal VARCHAR(5) NULL,
+  ville VARCHAR(30) NULL,
+  telephone VARCHAR(15) NULL,
+  telephone2 VARCHAR(15) NULL,
+  email VARCHAR(30) NOT NULL,
+  mot_passe VARCHAR(45) NOT NULL,
+  date_inscription DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date où la personne s\'est inscrite (avant la validation)',
+  est_inscrite TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Vrai quand l\'inscription est valdée',
+  PRIMARY KEY (id_personne),
+  UNIQUE INDEX email_UNIQUE (email ASC))
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`module`
+-- Table db524752934.module
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`module` (
-  `id_module` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(128) NOT NULL,
-  `objectif` VARCHAR(512) NULL,
-  `contenu` VARCHAR(45) NULL,
-  `nb_heures` INT NULL,
-  `prerequis` VARCHAR(512) NULL,
-  PRIMARY KEY (`id_module`))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS db524752934.module $$
+
+CREATE TABLE IF NOT EXISTS db524752934.module (
+  id_module INT NOT NULL AUTO_INCREMENT,
+  nom VARCHAR(128) NOT NULL,
+  objectif VARCHAR(512) NULL,
+  contenu VARCHAR(45) NULL,
+  nb_heures INT NULL,
+  prerequis VARCHAR(512) NULL,
+  PRIMARY KEY (id_module))
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`formation`
+-- Table db524752934.formation
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`formation` (
-  `id_formation` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `description` TEXT NULL,
-  PRIMARY KEY (`id_formation`))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS db524752934.formation $$
+
+CREATE TABLE IF NOT EXISTS db524752934.formation (
+  id_formation INT NOT NULL AUTO_INCREMENT,
+  nom VARCHAR(45) NOT NULL,
+  description TEXT NULL,
+  PRIMARY KEY (id_formation))
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`session`
+-- Table db524752934.session
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`session` (
-  `id_session` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  `date_debut` DATE NOT NULL,
-  `date_fin` DATE NOT NULL,
-  `description` TEXT NULL,
-  `id_formation` INT NOT NULL,
-  `date_debut_inscription` DATETIME NULL,
-  `date_fin_inscription` DATETIME NULL,
-  PRIMARY KEY (`id_session`),
-  INDEX `fk_session_formation_idx` (`id_formation` ASC),
-  CONSTRAINT `fk_session_formation`
-    FOREIGN KEY (`id_formation`)
-    REFERENCES `db524752934`.`formation` (`id_formation`)
+DROP TABLE IF EXISTS db524752934.session $$
+
+CREATE TABLE IF NOT EXISTS db524752934.session (
+  id_session INT NOT NULL AUTO_INCREMENT,
+  nom VARCHAR(45) NOT NULL,
+  date_debut DATE NOT NULL,
+  date_fin DATE NOT NULL,
+  description TEXT NULL,
+  id_formation INT NOT NULL,
+  date_debut_inscription DATETIME NULL,
+  date_fin_inscription DATETIME NULL,
+  PRIMARY KEY (id_session),
+  INDEX fk_session_formation_idx (id_formation ASC),
+  CONSTRAINT fk_session_formation
+    FOREIGN KEY (id_formation)
+    REFERENCES db524752934.formation (id_formation)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`formateur`
+-- Table db524752934.formateur
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`formateur` (
-  `id_personne` INT NOT NULL,
-  PRIMARY KEY (`id_personne`),
-  CONSTRAINT `fk_formateur_personne1`
-    FOREIGN KEY (`id_personne`)
-    REFERENCES `db524752934`.`personne` (`id_personne`)
+DROP TABLE IF EXISTS db524752934.formateur $$
+
+CREATE TABLE IF NOT EXISTS db524752934.formateur (
+  id_personne INT NOT NULL,
+  PRIMARY KEY (id_personne),
+  CONSTRAINT fk_formateur_personne1
+    FOREIGN KEY (id_personne)
+    REFERENCES db524752934.personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`evaluation`
+-- Table db524752934.evaluation
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`evaluation` (
-  `id_evaluation` INT NOT NULL AUTO_INCREMENT,
-  `id_module` INT NOT NULL,
-  `id_session` INT NOT NULL,
-  `id_formateur` INT NOT NULL,
-  PRIMARY KEY (`id_evaluation`),
-  INDEX `fk_evaluation_module1_idx` (`id_module` ASC),
-  INDEX `fk_evaluation_session1_idx` (`id_session` ASC),
-  INDEX `fk_evaluation_formateur1_idx` (`id_formateur` ASC),
-  CONSTRAINT `fk_evaluation_module1`
-    FOREIGN KEY (`id_module`)
-    REFERENCES `db524752934`.`module` (`id_module`)
+DROP TABLE IF EXISTS db524752934.evaluation $$
+
+CREATE TABLE IF NOT EXISTS db524752934.evaluation (
+  id_evaluation INT NOT NULL AUTO_INCREMENT,
+  id_module INT NOT NULL,
+  id_session INT NOT NULL,
+  id_formateur INT NOT NULL,
+  PRIMARY KEY (id_evaluation),
+  INDEX fk_evaluation_module1_idx (id_module ASC),
+  INDEX fk_evaluation_session1_idx (id_session ASC),
+  INDEX fk_evaluation_formateur1_idx (id_formateur ASC),
+  CONSTRAINT fk_evaluation_module1
+    FOREIGN KEY (id_module)
+    REFERENCES db524752934.module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_evaluation_session1`
-    FOREIGN KEY (`id_session`)
-    REFERENCES `db524752934`.`session` (`id_session`)
+  CONSTRAINT fk_evaluation_session1
+    FOREIGN KEY (id_session)
+    REFERENCES db524752934.session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_evaluation_formateur1`
-    FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
+  CONSTRAINT fk_evaluation_formateur1
+    FOREIGN KEY (id_formateur)
+    REFERENCES db524752934.formateur (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`module_formation`
+-- Table db524752934.bilan
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`module_formation` (
-  `id_module` INT NOT NULL,
-  `id_formation` INT NOT NULL,
-  PRIMARY KEY (`id_module`, `id_formation`),
-  INDEX `fk_module_has_formation_formation1_idx` (`id_formation` ASC),
-  INDEX `fk_module_has_formation_module1_idx` (`id_module` ASC),
-  CONSTRAINT `fk_module_has_formation_module1`
-    FOREIGN KEY (`id_module`)
-    REFERENCES `db524752934`.`module` (`id_module`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_module_has_formation_formation1`
-    FOREIGN KEY (`id_formation`)
-    REFERENCES `db524752934`.`formation` (`id_formation`)
+DROP TABLE IF EXISTS db524752934.bilan $$
+
+CREATE TABLE IF NOT EXISTS db524752934.bilan (
+  id_bilan INT(11) NOT NULL AUTO_INCREMENT,
+  date_effet DATE NOT NULL,
+  id_session INT(11) NOT NULL,
+  PRIMARY KEY (id_bilan),
+  UNIQUE INDEX id_UNIQUE (id_bilan ASC),
+  INDEX session1_idx (id_session ASC),
+  CONSTRAINT session1
+    FOREIGN KEY (id_session)
+    REFERENCES db524752934.session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`etat_candidature`
+-- Table db524752934.bulletin
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`etat_candidature` (
-  `id_etat_candidature` CHAR(1) NOT NULL,
-  `libelle` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_etat_candidature`))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS db524752934.bulletin $$
 
-
--- -----------------------------------------------------
--- Table `db524752934`.`candidature`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`candidature` (
-  `id_session` INT NOT NULL,
-  `id_personne` INT NOT NULL,
-  `id_etat_candidature` CHAR(1) NOT NULL,
-  `date_effet` DATETIME NOT NULL,
-  `motivation` TEXT NULL,
-  PRIMARY KEY (`id_session`, `id_personne`),
-  INDEX `fk_session_has_personne_personne1_idx` (`id_personne` ASC),
-  INDEX `fk_session_has_personne_session1_idx` (`id_session` ASC),
-  INDEX `fk_candidature_etat_candidature1_idx` (`id_etat_candidature` ASC),
-  CONSTRAINT `fk_session_has_personne_session1`
-    FOREIGN KEY (`id_session`)
-    REFERENCES `db524752934`.`session` (`id_session`)
+CREATE TABLE IF NOT EXISTS db524752934.bulletin (
+  id_bulletin INT(11) NOT NULL AUTO_INCREMENT,
+  commentaire VARCHAR(250) NOT NULL,
+  id_personne INT(11) NOT NULL,
+  id_bilan INT(11) NOT NULL,
+  PRIMARY KEY (id_bulletin),
+  UNIQUE INDEX id_UNIQUE (id_bulletin ASC),
+  INDEX personne1_idx (id_personne ASC),
+  INDEX bilan1_idx (id_bilan ASC),
+  CONSTRAINT personne1
+    FOREIGN KEY (id_personne)
+    REFERENCES db524752934.personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_session_has_personne_personne1`
-    FOREIGN KEY (`id_personne`)
-    REFERENCES `db524752934`.`personne` (`id_personne`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_candidature_etat_candidature1`
-    FOREIGN KEY (`id_etat_candidature`)
-    REFERENCES `db524752934`.`etat_candidature` (`id_etat_candidature`)
+  CONSTRAINT bilan1
+    FOREIGN KEY (id_bilan)
+    REFERENCES db524752934.bilan (id_bilan)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`salle`
+-- Table db524752934.ligne_bulletin
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`salle` (
-  `id_salle` INT NOT NULL AUTO_INCREMENT,
-  `nom` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_salle`),
-  UNIQUE INDEX `nom_UNIQUE` (`nom` ASC))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS db524752934.ligne_bulletin $$
 
-
--- -----------------------------------------------------
--- Table `db524752934`.`seance`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`seance` (
-  `id_module` INT NOT NULL,
-  `id_session` INT NOT NULL,
-  `id_formateur` INT NOT NULL,
-  `debut` DATETIME NOT NULL,
-  `fin` DATETIME NOT NULL,
-  `id_salle` INT NOT NULL,
-  `contenu` TEXT NULL,
-  PRIMARY KEY (`id_module`, `id_session`, `id_formateur`, `debut`, `fin`, `id_salle`),
-  INDEX `fk_seance_session1_idx` (`id_session` ASC),
-  INDEX `fk_seance_formateur1_idx` (`id_formateur` ASC),
-  INDEX `fk_seance_salle1_idx` (`id_salle` ASC),
-  CONSTRAINT `fk_seance_module1`
-    FOREIGN KEY (`id_module`)
-    REFERENCES `db524752934`.`module` (`id_module`)
+CREATE TABLE IF NOT EXISTS db524752934.ligne_bulletin (
+  id_bulletin INT(11) NOT NULL,
+  id_module INT(11) NOT NULL,
+  commentaire VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (id_bulletin, id_module),
+  INDEX module1_idx (id_module ASC),
+  INDEX bulletin1_idx (id_bulletin ASC),
+  CONSTRAINT bulletin1
+    FOREIGN KEY (id_bulletin)
+    REFERENCES db524752934.bulletin (id_bulletin)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_seance_session1`
-    FOREIGN KEY (`id_session`)
-    REFERENCES `db524752934`.`session` (`id_session`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_seance_formateur1`
-    FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_seance_salle1`
-    FOREIGN KEY (`id_salle`)
-    REFERENCES `db524752934`.`salle` (`id_salle`)
+  CONSTRAINT module1
+    FOREIGN KEY (id_module)
+    REFERENCES db524752934.module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`note`
+-- Table db524752934.module_formation
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`note` (
-  `id_evaluation` INT NOT NULL,
-  `id_personne` INT NOT NULL,
-  `note` DECIMAL(3,1) NOT NULL,
-  PRIMARY KEY (`id_evaluation`, `id_personne`),
-  INDEX `fk_note_personne1_idx` (`id_personne` ASC),
-  CONSTRAINT `fk_note_evaluation1`
-    FOREIGN KEY (`id_evaluation`)
-    REFERENCES `db524752934`.`evaluation` (`id_evaluation`)
+DROP TABLE IF EXISTS db524752934.module_formation $$
+
+CREATE TABLE IF NOT EXISTS db524752934.module_formation (
+  id_module INT NOT NULL,
+  id_formation INT NOT NULL,
+  PRIMARY KEY (id_module, id_formation),
+  INDEX fk_module_has_formation_formation1_idx (id_formation ASC),
+  INDEX fk_module_has_formation_module1_idx (id_module ASC),
+  CONSTRAINT fk_module_has_formation_module1
+    FOREIGN KEY (id_module)
+    REFERENCES db524752934.module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_note_personne1`
-    FOREIGN KEY (`id_personne`)
-    REFERENCES `db524752934`.`personne` (`id_personne`)
+  CONSTRAINT fk_module_has_formation_formation1
+    FOREIGN KEY (id_formation)
+    REFERENCES db524752934.formation (id_formation)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`theme`
+-- Table db524752934.etat_candidature
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`theme` (
-  `id_theme` INT NOT NULL AUTO_INCREMENT,
-  `libelle` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id_theme`),
-  UNIQUE INDEX `libelle_UNIQUE` (`libelle` ASC))
-ENGINE = InnoDB;
+DROP TABLE IF EXISTS db524752934.etat_candidature $$
+
+CREATE TABLE IF NOT EXISTS db524752934.etat_candidature (
+  id_etat_candidature CHAR(1) NOT NULL,
+  libelle VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_etat_candidature))
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`module_theme`
+-- Table db524752934.candidature
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`module_theme` (
-  `id_module` INT NOT NULL,
-  `id_theme` INT NOT NULL,
-  PRIMARY KEY (`id_module`, `id_theme`),
-  INDEX `fk_module_has_theme_theme1_idx` (`id_theme` ASC),
-  INDEX `fk_module_has_theme_module1_idx` (`id_module` ASC),
-  CONSTRAINT `fk_module_has_theme_module1`
-    FOREIGN KEY (`id_module`)
-    REFERENCES `db524752934`.`module` (`id_module`)
+DROP TABLE IF EXISTS db524752934.candidature $$
+
+CREATE TABLE IF NOT EXISTS db524752934.candidature (
+  id_session INT NOT NULL,
+  id_personne INT NOT NULL,
+  id_etat_candidature CHAR(1) NOT NULL,
+  date_effet DATETIME NOT NULL,
+  motivation TEXT NULL,
+  PRIMARY KEY (id_session, id_personne),
+  INDEX fk_session_has_personne_personne1_idx (id_personne ASC),
+  INDEX fk_session_has_personne_session1_idx (id_session ASC),
+  INDEX fk_candidature_etat_candidature1_idx (id_etat_candidature ASC),
+  CONSTRAINT fk_session_has_personne_session1
+    FOREIGN KEY (id_session)
+    REFERENCES db524752934.session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_module_has_theme_theme1`
-    FOREIGN KEY (`id_theme`)
-    REFERENCES `db524752934`.`theme` (`id_theme`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `db524752934`.`bilan`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`bilan` (
-  `id_bilan` INT NOT NULL AUTO_INCREMENT,
-  `date` DATE NOT NULL,
-  `id_session` INT NOT NULL,
-  PRIMARY KEY (`id_bilan`),
-  UNIQUE INDEX `id_UNIQUE` (`id_bilan` ASC),
-  INDEX `session1_idx` (`id_session` ASC),
-  CONSTRAINT `session1`
-    FOREIGN KEY (`id_session`)
-    REFERENCES `db524752934`.`session` (`id_session`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `db524752934`.`bulletin`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`bulletin` (
-  `id_bulletin` INT NOT NULL AUTO_INCREMENT,
-  `commentaire` VARCHAR(250) NOT NULL,
-  `id_personne` INT NOT NULL,
-  `id_bilan` INT NOT NULL,
-  PRIMARY KEY (`id_bulletin`),
-  UNIQUE INDEX `id_UNIQUE` (`id_bulletin` ASC),
-  INDEX `personne1_idx` (`id_personne` ASC),
-  INDEX `bilan1_idx` (`id_bilan` ASC),
-  CONSTRAINT `personne1`
-    FOREIGN KEY (`id_personne`)
-    REFERENCES `db524752934`.`personne` (`id_personne`)
+  CONSTRAINT fk_session_has_personne_personne1
+    FOREIGN KEY (id_personne)
+    REFERENCES db524752934.personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `bilan1`
-    FOREIGN KEY (`id_bilan`)
-    REFERENCES `db524752934`.`bilan` (`id_bilan`)
+  CONSTRAINT fk_candidature_etat_candidature1
+    FOREIGN KEY (id_etat_candidature)
+    REFERENCES db524752934.etat_candidature (id_etat_candidature)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
--- Table `db524752934`.`ligne_bulletin`
+-- Table db524752934.salle
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `db524752934`.`ligne_bulletin` (
-  `id` INT NOT NULL,
-  `id_module` INT NOT NULL,
-  `commentaire` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`, `id_module`),
-  INDEX `module1_idx` (`id_module` ASC),
-  INDEX `bulletin1_idx` (`id` ASC),
-  CONSTRAINT `bulletin1`
-    FOREIGN KEY (`id`)
-    REFERENCES `db524752934`.`bulletin` (`id_bulletin`)
+DROP TABLE IF EXISTS db524752934.salle $$
+
+CREATE TABLE IF NOT EXISTS db524752934.salle (
+  id_salle INT NOT NULL AUTO_INCREMENT,
+  nom VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_salle),
+  UNIQUE INDEX nom_UNIQUE (nom ASC))
+ENGINE = InnoDB$$
+
+
+-- -----------------------------------------------------
+-- Table db524752934.seance
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS db524752934.seance $$
+
+CREATE TABLE IF NOT EXISTS db524752934.seance (
+  id_module INT NOT NULL,
+  id_session INT NOT NULL,
+  id_formateur INT(11) NOT NULL,
+  debut DATETIME NOT NULL,
+  fin DATETIME NOT NULL,
+  id_salle INT NOT NULL,
+  contenu TEXT NULL,
+  PRIMARY KEY (id_session, debut, fin, id_salle, id_formateur, id_module),
+  INDEX fk_seance_session1_idx (id_session ASC),
+  INDEX fk_seance_formateur1_idx (id_formateur ASC),
+  INDEX fk_seance_salle1_idx (id_salle ASC),
+  CONSTRAINT fk_seance_module1
+    FOREIGN KEY (id_module)
+    REFERENCES db524752934.module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `module1`
-    FOREIGN KEY (`id_module`)
-    REFERENCES `db524752934`.`module` (`id_module`)
+  CONSTRAINT fk_seance_session1
+    FOREIGN KEY (id_session)
+    REFERENCES db524752934.session (id_session)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_seance_formateur1
+    FOREIGN KEY (id_formateur)
+    REFERENCES db524752934.formateur (id_personne)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_seance_salle1
+    FOREIGN KEY (id_salle)
+    REFERENCES db524752934.salle (id_salle)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
+
+-- -----------------------------------------------------
+-- Table db524752934.note
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS db524752934.note $$
+
+CREATE TABLE IF NOT EXISTS db524752934.note (
+  id_evaluation INT NOT NULL,
+  id_personne INT NOT NULL,
+  note DECIMAL(3,1) NOT NULL,
+  PRIMARY KEY (id_evaluation, id_personne),
+  INDEX fk_note_personne1_idx (id_personne ASC),
+  CONSTRAINT fk_note_evaluation1
+    FOREIGN KEY (id_evaluation)
+    REFERENCES db524752934.evaluation (id_evaluation)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_note_personne1
+    FOREIGN KEY (id_personne)
+    REFERENCES db524752934.personne (id_personne)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB$$
+
+
+-- -----------------------------------------------------
+-- Table db524752934.theme
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS db524752934.theme $$
+
+CREATE TABLE IF NOT EXISTS db524752934.theme (
+  id_theme INT NOT NULL AUTO_INCREMENT,
+  libelle VARCHAR(45) NOT NULL,
+  PRIMARY KEY (id_theme),
+  UNIQUE INDEX libelle_UNIQUE (libelle ASC))
+ENGINE = InnoDB$$
+
+
+-- -----------------------------------------------------
+-- Table db524752934.module_theme
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS db524752934.module_theme $$
+
+CREATE TABLE IF NOT EXISTS db524752934.module_theme (
+  id_module INT NOT NULL,
+  id_theme INT NOT NULL,
+  PRIMARY KEY (id_module, id_theme),
+  INDEX fk_module_has_theme_theme1_idx (id_theme ASC),
+  INDEX fk_module_has_theme_module1_idx (id_module ASC),
+  CONSTRAINT fk_module_has_theme_module1
+    FOREIGN KEY (id_module)
+    REFERENCES db524752934.module (id_module)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT fk_module_has_theme_theme1
+    FOREIGN KEY (id_theme)
+    REFERENCES db524752934.theme (id_theme)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB$$
 
 
 
@@ -410,34 +441,26 @@ CREATE  PROCEDURE refresh_base()
 BEGIN
   -- Lever temporairement les contraintes d'intégrité
   SET FOREIGN_KEY_CHECKS=0;
-  TRUNCATE personne;
-  TRUNCATE session;
-  TRUNCATE module;
-  TRUNCATE formateur;
-  TRUNCATE candidature;
-  TRUNCATE formation;
-  TRUNCATE module_formation;
-  TRUNCATE module_theme;
-  TRUNCATE note;
-  TRUNCATE salle;
-  TRUNCATE seance;
-  TRUNCATE theme;
-  TRUNCATE evaluation;
-  TRUNCATE etat_candidature;
-
-
-  -- etc. // A COMPLETER
+  -- Vider les tables sans log, en reinitialisant leur auto-increment à 1
+  TRUNCATE TABLE bilan;
+  TRUNCATE TABLE bulletin;
+  TRUNCATE TABLE candidature;
+  TRUNCATE TABLE etat_candidature;
+  TRUNCATE TABLE evaluation;
+  TRUNCATE TABLE formateur;
+  TRUNCATE TABLE formation;
+  TRUNCATE TABLE ligne_bulletin;
+  TRUNCATE TABLE module;
+  TRUNCATE TABLE module_formation;
+  TRUNCATE TABLE module_theme;
+  TRUNCATE TABLE note;
+  TRUNCATE TABLE personne;
+  TRUNCATE TABLE salle;
+  TRUNCATE TABLE seance;
+  TRUNCATE TABLE session;
+  TRUNCATE TABLE theme;
   -- Retablir les contraintes d'intégrité
   SET FOREIGN_KEY_CHECKS=1;
-
-  -- Remettre les compteurs à 1 (pour l'auto-incrément)
-
-
-  ALTER TABLE session AUTO_INCREMENT=1;
-  ALTER TABLE formateur AUTO_INCREMENT=1;
-  ALTER TABLE module AUTO_INCREMENT=1;
-  ALTER TABLE personne AUTO_INCREMENT=1;
-  ALTER TABLE formation AUTO_INCREMENT=1;
 
 
   START TRANSACTION;

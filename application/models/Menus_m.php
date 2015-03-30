@@ -32,6 +32,13 @@ class Menus_m extends CI_Model {
     $sql = "SELECT id_session AS value, nom AS text FROM session";
     return $this->getMap($sql);
   }
+  
+  public function getBilansBySession($idSession)  {
+      $sql = "SELECT id_bilan AS value, date AS text
+              FROM bilan
+              WHERE id_session = $idSession";
+      return $this->getMap($sql);
+  }
 
   /** Stagiaires de la session de id $idSession */
   public function getStagiaires($idSession) {

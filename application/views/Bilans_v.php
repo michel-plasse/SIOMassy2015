@@ -17,6 +17,9 @@
                         echo "<li>$session</li>";
                     }
                 ?>
+                <ul>
+                    
+                </ul>
             </ul>
         </section>
     </body>

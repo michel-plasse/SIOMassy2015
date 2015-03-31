@@ -9,18 +9,17 @@ class Bilans extends CI_Controller {
   }
 
   public function index() {
-//    $data["sessions"] = $this->Menus_m->getSessionsEnCours();
-//    $data["bilans"] = $this->Menus_m->getBilansBySession($id_session);
-//    $this->load->view('Bilans_v', $data);
-    $this->session(1);
+    $data["bilans"] = $this->Bilan_m->getAll();
+    $this->load->view('Bilans_v', $data);
+//    $this->session(1);
   }
 
   /** Bilans de la session de id $idSession */
-  public function session($idSession) {
-    $data["id_session"] = $idSession;
-    $data["bilans"] = $this->Menus_m->getBilansBySession($idSession);
-    $this->load->view('Bilans_v', $data);
-  }
+//  public function session($idSession) {
+//    $data["id_session"] = $idSession;
+//    $data["bilans"] = $this->Menus_m->getBilansBySession($idSession);
+//    $this->load->view('Bilans_v', $data);
+//  }
 
   /** Bilan de id $idBilan */
   public function get($idBilan) {

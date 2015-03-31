@@ -3,12 +3,31 @@ DROP SCHEMA IF EXISTS db524752934 $$
 CREATE SCHEMA IF NOT EXISTS db524752934 DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci $$
 USE db524752934 $$
 
+-- Lever temporairement les contraintes d'intégrité
+SET FOREIGN_KEY_CHECKS=0 $$
+DROP TABLE IF EXISTS personne $$
+DROP TABLE IF EXISTS bilan $$
+DROP TABLE IF EXISTS bulletin $$
+DROP TABLE IF EXISTS candidature $$
+DROP TABLE IF EXISTS etat_candidature $$
+DROP TABLE IF EXISTS evaluation $$
+DROP TABLE IF EXISTS formateur $$
+DROP TABLE IF EXISTS formation $$
+DROP TABLE IF EXISTS ligne_bulletin $$
+DROP TABLE IF EXISTS module $$
+DROP TABLE IF EXISTS module_formation $$
+DROP TABLE IF EXISTS module_theme $$
+DROP TABLE IF EXISTS note $$
+DROP TABLE IF EXISTS personne $$
+DROP TABLE IF EXISTS salle $$
+DROP TABLE IF EXISTS seance $$
+DROP TABLE IF EXISTS session $$
+DROP TABLE IF EXISTS theme $$
 -- -----------------------------------------------------
--- Table db524752934.personne
+-- Table personne
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.personne $$
 
-CREATE TABLE IF NOT EXISTS db524752934.personne (
+CREATE TABLE IF NOT EXISTS personne (
   id_personne INT NOT NULL AUTO_INCREMENT,
   civilite VARCHAR(3) NOT NULL,
   prenom VARCHAR(20) NOT NULL,
@@ -20,19 +39,14 @@ CREATE TABLE IF NOT EXISTS db524752934.personne (
   telephone2 VARCHAR(15) NULL,
   email VARCHAR(30) NOT NULL,
   mot_passe VARCHAR(45) NOT NULL,
-  date_inscription DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date où la personne s\'est inscrite (avant la validation)',
+  date_inscription DATETIME NOT NULL COMMENT 'Date où la personne s\'est inscrite (avant la validation)',
   est_inscrite TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Vrai quand l\'inscription est valdée',
   PRIMARY KEY (id_personne),
   UNIQUE INDEX email_UNIQUE (email ASC))
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.module
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.module $$
-
-CREATE TABLE IF NOT EXISTS db524752934.module (
+CREATE TABLE IF NOT EXISTS module (
   id_module INT NOT NULL AUTO_INCREMENT,
   nom VARCHAR(128) NOT NULL,
   objectif VARCHAR(512) NULL,
@@ -43,12 +57,7 @@ CREATE TABLE IF NOT EXISTS db524752934.module (
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.formation
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.formation $$
-
-CREATE TABLE IF NOT EXISTS db524752934.formation (
+CREATE TABLE IF NOT EXISTS formation (
   id_formation INT NOT NULL AUTO_INCREMENT,
   nom VARCHAR(45) NOT NULL,
   description TEXT NULL,
@@ -56,12 +65,7 @@ CREATE TABLE IF NOT EXISTS db524752934.formation (
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.session
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.session $$
-
-CREATE TABLE IF NOT EXISTS db524752934.session (
+CREATE TABLE IF NOT EXISTS session (
   id_session INT NOT NULL AUTO_INCREMENT,
   nom VARCHAR(45) NOT NULL,
   date_debut DATE NOT NULL,
@@ -74,34 +78,24 @@ CREATE TABLE IF NOT EXISTS db524752934.session (
   INDEX fk_session_formation_idx (id_formation ASC),
   CONSTRAINT fk_session_formation
     FOREIGN KEY (id_formation)
-    REFERENCES db524752934.formation (id_formation)
+    REFERENCES formation (id_formation)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.formateur
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.formateur $$
-
-CREATE TABLE IF NOT EXISTS db524752934.formateur (
+CREATE TABLE IF NOT EXISTS formateur (
   id_personne INT NOT NULL,
   PRIMARY KEY (id_personne),
   CONSTRAINT fk_formateur_personne1
     FOREIGN KEY (id_personne)
-    REFERENCES db524752934.personne (id_personne)
+    REFERENCES personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.evaluation
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.evaluation $$
-
-CREATE TABLE IF NOT EXISTS db524752934.evaluation (
+CREATE TABLE IF NOT EXISTS evaluation (
   id_evaluation INT NOT NULL AUTO_INCREMENT,
   id_module INT NOT NULL,
   id_session INT NOT NULL,
@@ -113,28 +107,23 @@ CREATE TABLE IF NOT EXISTS db524752934.evaluation (
   INDEX fk_evaluation_formateur1_idx (id_formateur ASC),
   CONSTRAINT fk_evaluation_module1
     FOREIGN KEY (id_module)
-    REFERENCES db524752934.module (id_module)
+    REFERENCES module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_evaluation_session1
     FOREIGN KEY (id_session)
-    REFERENCES db524752934.session (id_session)
+    REFERENCES session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_evaluation_formateur1
     FOREIGN KEY (id_formateur)
-    REFERENCES db524752934.formateur (id_personne)
+    REFERENCES formateur (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB $$
 
 
--- -----------------------------------------------------
--- Table db524752934.bilan
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.bilan $$
-
-CREATE TABLE IF NOT EXISTS db524752934.bilan (
+CREATE TABLE IF NOT EXISTS bilan (
   id_bilan INT(11) NOT NULL AUTO_INCREMENT,
   date_effet DATE NOT NULL,
   id_session INT(11) NOT NULL,
@@ -143,18 +132,13 @@ CREATE TABLE IF NOT EXISTS db524752934.bilan (
   INDEX session1_idx (id_session ASC),
   CONSTRAINT session1
     FOREIGN KEY (id_session)
-    REFERENCES db524752934.session (id_session)
+    REFERENCES session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.bulletin
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.bulletin $$
-
-CREATE TABLE IF NOT EXISTS db524752934.bulletin (
+CREATE TABLE IF NOT EXISTS bulletin (
   id_bulletin INT(11) NOT NULL AUTO_INCREMENT,
   commentaire VARCHAR(250) NOT NULL,
   id_personne INT(11) NOT NULL,
@@ -165,12 +149,12 @@ CREATE TABLE IF NOT EXISTS db524752934.bulletin (
   INDEX bilan1_idx (id_bilan ASC),
   CONSTRAINT personne1
     FOREIGN KEY (id_personne)
-    REFERENCES db524752934.personne (id_personne)
+    REFERENCES personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT bilan1
     FOREIGN KEY (id_bilan)
-    REFERENCES db524752934.bilan (id_bilan)
+    REFERENCES bilan (id_bilan)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -178,12 +162,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_general_ci$$
 
 
--- -----------------------------------------------------
--- Table db524752934.ligne_bulletin
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.ligne_bulletin $$
-
-CREATE TABLE IF NOT EXISTS db524752934.ligne_bulletin (
+CREATE TABLE IF NOT EXISTS ligne_bulletin (
   id_bulletin INT(11) NOT NULL,
   id_module INT(11) NOT NULL,
   commentaire VARCHAR(45) NULL DEFAULT NULL,
@@ -192,23 +171,18 @@ CREATE TABLE IF NOT EXISTS db524752934.ligne_bulletin (
   INDEX bulletin1_idx (id_bulletin ASC),
   CONSTRAINT bulletin1
     FOREIGN KEY (id_bulletin)
-    REFERENCES db524752934.bulletin (id_bulletin)
+    REFERENCES bulletin (id_bulletin)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT module1
     FOREIGN KEY (id_module)
-    REFERENCES db524752934.module (id_module)
+    REFERENCES module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.module_formation
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.module_formation $$
-
-CREATE TABLE IF NOT EXISTS db524752934.module_formation (
+CREATE TABLE IF NOT EXISTS module_formation (
   id_module INT NOT NULL,
   id_formation INT NOT NULL,
   PRIMARY KEY (id_module, id_formation),
@@ -216,35 +190,25 @@ CREATE TABLE IF NOT EXISTS db524752934.module_formation (
   INDEX fk_module_has_formation_module1_idx (id_module ASC),
   CONSTRAINT fk_module_has_formation_module1
     FOREIGN KEY (id_module)
-    REFERENCES db524752934.module (id_module)
+    REFERENCES module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_module_has_formation_formation1
     FOREIGN KEY (id_formation)
-    REFERENCES db524752934.formation (id_formation)
+    REFERENCES formation (id_formation)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.etat_candidature
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.etat_candidature $$
-
-CREATE TABLE IF NOT EXISTS db524752934.etat_candidature (
+CREATE TABLE IF NOT EXISTS etat_candidature (
   id_etat_candidature CHAR(1) NOT NULL,
   libelle VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_etat_candidature))
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.candidature
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.candidature $$
-
-CREATE TABLE IF NOT EXISTS db524752934.candidature (
+CREATE TABLE IF NOT EXISTS candidature (
   id_session INT NOT NULL,
   id_personne INT NOT NULL,
   id_etat_candidature CHAR(1) NOT NULL,
@@ -256,28 +220,23 @@ CREATE TABLE IF NOT EXISTS db524752934.candidature (
   INDEX fk_candidature_etat_candidature1_idx (id_etat_candidature ASC),
   CONSTRAINT fk_session_has_personne_session1
     FOREIGN KEY (id_session)
-    REFERENCES db524752934.session (id_session)
+    REFERENCES session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_session_has_personne_personne1
     FOREIGN KEY (id_personne)
-    REFERENCES db524752934.personne (id_personne)
+    REFERENCES personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_candidature_etat_candidature1
     FOREIGN KEY (id_etat_candidature)
-    REFERENCES db524752934.etat_candidature (id_etat_candidature)
+    REFERENCES etat_candidature (id_etat_candidature)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.salle
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.salle $$
-
-CREATE TABLE IF NOT EXISTS db524752934.salle (
+CREATE TABLE IF NOT EXISTS salle (
   id_salle INT NOT NULL AUTO_INCREMENT,
   nom VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_salle),
@@ -285,12 +244,7 @@ CREATE TABLE IF NOT EXISTS db524752934.salle (
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.seance
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.seance $$
-
-CREATE TABLE IF NOT EXISTS db524752934.seance (
+CREATE TABLE IF NOT EXISTS seance (
   id_module INT NOT NULL,
   id_session INT NOT NULL,
   id_formateur INT(11) NOT NULL,
@@ -304,33 +258,28 @@ CREATE TABLE IF NOT EXISTS db524752934.seance (
   INDEX fk_seance_salle1_idx (id_salle ASC),
   CONSTRAINT fk_seance_module1
     FOREIGN KEY (id_module)
-    REFERENCES db524752934.module (id_module)
+    REFERENCES module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_seance_session1
     FOREIGN KEY (id_session)
-    REFERENCES db524752934.session (id_session)
+    REFERENCES session (id_session)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_seance_formateur1
     FOREIGN KEY (id_formateur)
-    REFERENCES db524752934.formateur (id_personne)
+    REFERENCES formateur (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_seance_salle1
     FOREIGN KEY (id_salle)
-    REFERENCES db524752934.salle (id_salle)
+    REFERENCES salle (id_salle)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.note
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.note $$
-
-CREATE TABLE IF NOT EXISTS db524752934.note (
+CREATE TABLE IF NOT EXISTS note (
   id_evaluation INT NOT NULL,
   id_personne INT NOT NULL,
   note DECIMAL(3,1) NOT NULL,
@@ -338,23 +287,18 @@ CREATE TABLE IF NOT EXISTS db524752934.note (
   INDEX fk_note_personne1_idx (id_personne ASC),
   CONSTRAINT fk_note_evaluation1
     FOREIGN KEY (id_evaluation)
-    REFERENCES db524752934.evaluation (id_evaluation)
+    REFERENCES evaluation (id_evaluation)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_note_personne1
     FOREIGN KEY (id_personne)
-    REFERENCES db524752934.personne (id_personne)
+    REFERENCES personne (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.theme
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.theme $$
-
-CREATE TABLE IF NOT EXISTS db524752934.theme (
+CREATE TABLE IF NOT EXISTS theme (
   id_theme INT NOT NULL AUTO_INCREMENT,
   libelle VARCHAR(45) NOT NULL,
   PRIMARY KEY (id_theme),
@@ -362,12 +306,7 @@ CREATE TABLE IF NOT EXISTS db524752934.theme (
 ENGINE = InnoDB$$
 
 
--- -----------------------------------------------------
--- Table db524752934.module_theme
--- -----------------------------------------------------
-DROP TABLE IF EXISTS db524752934.module_theme $$
-
-CREATE TABLE IF NOT EXISTS db524752934.module_theme (
+CREATE TABLE IF NOT EXISTS module_theme (
   id_module INT NOT NULL,
   id_theme INT NOT NULL,
   PRIMARY KEY (id_module, id_theme),
@@ -375,19 +314,21 @@ CREATE TABLE IF NOT EXISTS db524752934.module_theme (
   INDEX fk_module_has_theme_module1_idx (id_module ASC),
   CONSTRAINT fk_module_has_theme_module1
     FOREIGN KEY (id_module)
-    REFERENCES db524752934.module (id_module)
+    REFERENCES module (id_module)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT fk_module_has_theme_theme1
     FOREIGN KEY (id_theme)
-    REFERENCES db524752934.theme (id_theme)
+    REFERENCES theme (id_theme)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB$$
 
 
 
------------------------------------------- Vues
+-- Remettre les contraintes d'intégrité
+SET FOREIGN_KEY_CHECKS=1 $$
+/*-------------------------------- Vues ------------*/
 
 DROP VIEW IF EXISTS stagiaire $$
 CREATE VIEW stagiaire AS
@@ -541,15 +482,16 @@ END$$
 DROP TRIGGER IF EXISTS salle_before_update_trigger $$
 
 CREATE TRIGGER salle_before_update_trigger
-BEFORE UPDATE ON db524752934.salle
+BEFORE UPDATE ON salle
 FOR EACH ROW
-begin
-	set new.nom = trim(upper(new.nom));
-	if new.nom regexp '^s*$' then
-		signal sqlstate '45000'
-        set message_text = 'Nom vide', mysql_errno = 3000;
-	end if;
-end$$
+BEGIN
+	SET new.nom = TRIM(UPPER(new.nom));
+	IF new.nom regexp '^ *$' THEN
+    CALL raise_error();
+-- 		signal sqlstate '45000'
+--     set message_text = 'Nom vide', mysql_errno = 3000;
+	END IF;
+END$$
 
 
 
@@ -561,26 +503,33 @@ FOR EACH ROW
 BEGIN
 	SET NEW.prenom = trim(initcap(NEW.prenom));
 	IF NEW.prenom REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Prénom vide', MYSQL_ERRNO=3000;
+    -- SIGNAL pas disponible sur le serveur de production (v5.1)
+    -- => contourner en provoquant une erreur par l'appel à une
+    -- procédure inexistante
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Prénom vide', MYSQL_ERRNO=3000;
 	END if;
 
     SET NEW.nom = trim(UPPER(NEW.nom));
     IF NEW.nom REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Nom vide', MYSQL_ERRNO=3000;
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Nom vide', MYSQL_ERRNO=3000;
 	END if;
 
     SET NEW.adresse = trim(initcap(NEW.adresse));
     IF NEW.adresse REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Adresse vide', MYSQL_ERRNO=3000;
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Adresse vide', MYSQL_ERRNO=3000;
 	END if;
 
-    Set NEW.ville = trim(initcap(NEW.ville));
+  SET NEW.ville = trim(initcap(NEW.ville));
 	IF NEW.ville REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Ville vide', MYSQL_ERRNO=3000;
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Ville vide', MYSQL_ERRNO=3000;
 	END if;
 
     SET NEW.telephone =  replace(replace(NEW.telephone, '.', ''), ' ', '');
@@ -596,26 +545,30 @@ FOR EACH ROW
 BEGIN
 	SET NEW.prenom = trim(initcap(NEW.prenom));
 	IF NEW.prenom REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Prénom vide', MYSQL_ERRNO=3000;
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Prénom vide', MYSQL_ERRNO=3000;
 	END if;
 
-    SET NEW.nom = trim(UPPER(NEW.nom));
-    IF NEW.nom REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Nom vide', MYSQL_ERRNO=3000;
+  SET NEW.nom = trim(UPPER(NEW.nom));
+  IF NEW.nom REGEXP '^ *$' THEN
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Nom vide', MYSQL_ERRNO=3000;
 	END if;
 
-    SET NEW.adresse = trim(initcap(NEW.adresse));
-    IF NEW.adresse REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Adresse vide', MYSQL_ERRNO=3000;
+  SET NEW.adresse = trim(initcap(NEW.adresse));
+  IF NEW.adresse REGEXP '^ *$' THEN
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Adresse vide', MYSQL_ERRNO=3000;
 	END if;
 
-    Set NEW.ville = trim(initcap(NEW.ville));
+  Set NEW.ville = trim(initcap(NEW.ville));
 	IF NEW.ville REGEXP '^ *$' THEN
-		SIGNAL SQLSTATE '45000'
-		SET MESSAGE_TEXT='Ville vide', MYSQL_ERRNO=3000;
+    CALL raise_error();
+-- 		SIGNAL SQLSTATE '45000'
+-- 		SET MESSAGE_TEXT='Ville vide', MYSQL_ERRNO=3000;
 	END if;
 
     SET NEW.telephone =  replace(replace(NEW.telephone, '.', ''), ' ', '');

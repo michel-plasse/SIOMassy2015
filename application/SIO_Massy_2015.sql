@@ -500,9 +500,14 @@ BEGIN
 
   INSERT INTO session
   (id_session, nom, date_debut, date_fin, description, id_formation, date_debut_inscription, date_fin_inscription) VALUES
-  (1, 'BTS SIO 2015', '2014-05-07', '2015-05-29', '3ème session pour le BTS SIO', 1, '2014-03-07 09:00:00', '2014-04-07 18:00:00'),
+  (1, 'BTS SIO 2015', '2014-06-02', '2015-05-07', '3ème session pour le BTS SIO', 1, '2014-03-07 09:00:00', '2014-04-07 18:00:00'),
   (2, 'BTS CG 2016', '2015-09-25', '2016-09-15', '2ème session pour le BTS CG', 2, '2015-07-25 09:00:00', '2015-08-25 18:00:00'),
   (3, 'BTS Audio 2016', '2015-11-15', '2016-11-05', '1ère session pour le BTS Audiovisuel option son', 2, '2015-09-15 09:00:00', '2015-10-25 18:00:00');
+
+  INSERT INTO bilan
+  (id_bilan, date_effet, id_session) VALUES
+  (1, '2014-11-04', '1'),
+  (2, '2015-04-14', '1');
 
   INSERT INTO evaluation
   (id_evaluation, id_module, id_session, id_formateur) VALUES

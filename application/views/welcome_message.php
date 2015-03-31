@@ -75,7 +75,9 @@
                 display: inline-block;
             }
             nav{
-                display: block;
+                display: inline-block;
+                
+                width: 100%;
             }
 
             header{
@@ -84,11 +86,15 @@
             img{
                 float: left;
             }
+            #FormConnexion{
+                width: 100%;
+            }
+            #FormDeconnexion{
+                width: 100%;
+            }
         </style>
     </head>
     <body>
-
-        <div>
             <!--
             <div id="menuGauche">
             <?php
@@ -98,6 +104,7 @@
               </select>
             </div>
             -->
+            
             <header>
                 <?php
 //                if()
@@ -109,7 +116,7 @@
 //                    
 //                }
                 ?>
-                <img src="../../items/images/banniere.jpg" alt="LogoGreta"/>
+                <img src="items/images/banniere.jpg" alt="LogoGreta"/>
        
                 <form id="FormConnexion" action="" method="post">
                     Email : <input type="text" name="email">
@@ -137,7 +144,7 @@
             <div id="corps">
                 <h1>Proposition de maquette</h1>
             </div>
-        </div>
+       
 
         <!--
          <div id="container">

@@ -32,11 +32,12 @@ class Menus_m extends CI_Model {
     $sql = "SELECT id_session AS value, nom AS text FROM session";
     return $this->getMap($sql);
   }
-  
+
   public function getBilansBySession($idSession)  {
-      $sql = "SELECT id_bilan AS value, date AS text
-              FROM bilan
-              WHERE id_session = $idSession";
+      $sql = "SELECT id_bilan AS value, concat(nom, ' (', date_effet, ')') AS text
+              FROM bilan b INNER JOIN session s
+              ON b.id_session = s.id_session
+              WHERE b.id_session = $idSession";
       return $this->getMap($sql);
   }
 

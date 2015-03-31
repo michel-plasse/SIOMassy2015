@@ -12,7 +12,7 @@ class Bilan_m extends CI_Model {
   /** Insere un bilan. $data est un tableau associatif de clés date et id_session.
    * Lance une exception en cas de problème.
    */
-  public static function insert($data) {
+  public function insert($data) {
     $db = DB::getConnection();
     $sql = "INSERT INTO bilan (id_bilan, date, id_session)
             VALUES (null, :date, :id_session)";
@@ -26,4 +26,7 @@ class Bilan_m extends CI_Model {
     }
   }
 
+  public function get($idBilan) {
+    return $idBilan;
+  }
 }

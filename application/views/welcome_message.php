@@ -76,6 +76,7 @@
   <body>
 
     <div>
+      <!--
       <div id="menuGauche">
         <?php
         $size = count($sessions);
@@ -83,25 +84,26 @@
         ?>
         </select>
       </div>
+      -->
       <div id="menuHaut">
-        <a id="lienStagiaires" href="#stagiaires">Stagiaires</a>
+        <a id="lienBilans" href="bilans">Conseils de classe</a>
         -
-        <a id="lienEvaluations" href="#evaluations">Evaluations</a>
-        -
-        <a id="lienBilans" href="#bilans">Conseils de classe</a>
-      </div>
+        <a id="lienEvaluations" href="evaluations">Evaluations</a>
+       </div>
       <div id="corps">
         <h1>Proposition de maquette</h1>
       </div>
     </div>
-    <div id="container">
+
+ <!--
+  <div id="container">
       <h2>Liens provisoires</h2>
       <ul>
         <li><a href="bilans">Conseils de classe</a></li>
         <li><a href="creation_bilan">Créer un conseil de classe</a></li>
         <li><a href="creer_eval">Créer une évaluation</a></li>
       </ul>
-<!--
+
       <hr/>
       <h1>Welcome to CodeIgniter!</h1>
 

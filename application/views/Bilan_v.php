@@ -9,18 +9,8 @@
   <body>
     <section>
       <header id = "liste_bilans" method = "POST">
-        <h1>Listes des bilans/ Conseils de classe</h1>
+        <h1>Conseil de classe <?=$bilan?></h1>
       </header>
-      <ul>
-        <?php
-        foreach ($bilans as $id => $text) {
-          echo "<li><a href='bilans/get/$id'>$text</a></li>";
-        }
-        ?>
-        <ul>
-
-        </ul>
-      </ul>
     </section>
   </body>
 </html>

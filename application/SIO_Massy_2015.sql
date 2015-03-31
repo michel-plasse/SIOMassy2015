@@ -106,6 +106,7 @@ CREATE TABLE IF NOT EXISTS db524752934.evaluation (
   id_module INT NOT NULL,
   id_session INT NOT NULL,
   id_formateur INT NOT NULL,
+  date_effet DATE NOT NULL,
   PRIMARY KEY (id_evaluation),
   INDEX fk_evaluation_module1_idx (id_module ASC),
   INDEX fk_evaluation_session1_idx (id_session ASC),
@@ -125,7 +126,7 @@ CREATE TABLE IF NOT EXISTS db524752934.evaluation (
     REFERENCES db524752934.formateur (id_personne)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -510,9 +511,9 @@ BEGIN
   (2, '2015-04-14', '1');
 
   INSERT INTO evaluation
-  (id_evaluation, id_module, id_session, id_formateur) VALUES
-  (1, 1, 1, 5),
-  (2, 2, 2, 4);
+  (id_evaluation, id_module, id_session, id_formateur, date_effet) VALUES
+  (1, 1, 1, 5, '2014-11-01'),
+  (2, 2, 2, 4, '2015-03-24');
 
   INSERT INTO etat_candidature
   (id_etat_candidature, libelle) VALUES

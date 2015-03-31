@@ -5,7 +5,7 @@
         <title>Welcome to CodeIgniter</title>
 
         <style type="text/css">
-
+            
             ::selection{ background-color: #E13300; color: white; }
             ::moz-selection{ background-color: #E13300; color: white; }
             ::webkit-selection{ background-color: #E13300; color: white; }
@@ -100,7 +100,7 @@
             -->
             <header>
                 <?php
-                //if(connecté)
+//                if()
 //                {
 //                    echo FormConnexion;
 //                }
@@ -109,7 +109,8 @@
 //                    
 //                }
                 ?>
-                <img src="banniere.jpg" alt="LogoGreta">
+                <img src="../../items/images/banniere.jpg" alt="LogoGreta"/>
+       
                 <form id="FormConnexion" action="" method="post">
                     Email : <input type="text" name="email">
                     Mot de passe : <input type="password" name="mdp">

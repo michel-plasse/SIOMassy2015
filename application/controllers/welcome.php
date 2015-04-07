@@ -21,10 +21,10 @@ class Welcome extends CI_Controller {
    * @see http://codeigniter.com/user_guide/general/urls.html
    */
   public function index() {
-    $this->load->model('Menus_m');
+    $this->load->model('menus_m');
     $this->load->helper('form');
     try {
-      $data["sessions"] = $this->Menus_m->getSessionsEnCours();
+      $data["sessions"] = $this->menus_m->getSessionsEnCours();
       $this->load->view('welcome_message', $data);
     } catch (Exception $exc) {
       $data["exception"] = $exc;

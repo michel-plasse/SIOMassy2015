@@ -1,16 +1,16 @@
-<?php
+﻿<?php
 
 class Bilans extends CI_Controller {
 
   public function __construct() {
     parent::__construct();
-    $this->load->model('Menus_m');
-    $this->load->model('Bilan_m');
+    $this->load->model('menus_m');
+    $this->load->model('bilan_m');
   }
 
   public function index() {
-    $data["bilans"] = $this->Bilan_m->getAll();
-    $this->load->view('Bilans_v', $data);
+    $data["bilans"] = $this->bilan_m->getAll();
+    $this->load->view('bilans_v', $data);
 //    $this->session(1);
   }
 
@@ -23,8 +23,8 @@ class Bilans extends CI_Controller {
 
   /** Bilan de id $idBilan */
   public function get($idBilan) {
-    $data["bilan"] = $this->Bilan_m->get($idBilan);
-    $this->load->view('Bilan_v', $data);
+    $data["bilan"] = $this->bilan_m->get($idBilan);
+    $this->load->view('bilan_v', $data);
   }
 
 }

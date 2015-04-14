@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<?php include_once 'logout.php'; ?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -131,7 +130,7 @@
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['mdp'] = $_POST['mdp'];
 
-                    echo 'Vous êtes connecté en tant que' . $_POST['email'];
+                    echo 'Vous êtes connecté en tant que ' . $_POST['email'];
                 } else {
                     // Le visiteur n'a pas été reconnu
                     echo 'Membre non reconnu';
@@ -142,10 +141,22 @@
             }
             ?>
 
-            <form id="FormDeconnexion" action="" method="post">
-                <button type="submit" name="deconnexion">Déconnexion</button>
 
+
+
+            <form id="FormDeconnexion" action="" method="post">
+                <button name="deconnexion" type="button" >Déconnexion</button>
             </form>
+            
+            <script>
+                function deconnexion() {
+                    session_unset();
+                    session_destroy();
+                    echo 'Vous êtes déconnecté'
+                }
+            </script>
+
+
 
 
             <img src="items/images/banniere.jpg" alt="LogoGreta"/>

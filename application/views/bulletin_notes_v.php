@@ -1,18 +1,28 @@
+<?php
+foreach ($stagiaire as $infos_stagiaire) {
+    $nom = $infos_stagiaire["nom"];
+    $prenom = $infos_stagiaire["prenom"];
+    $nom_diplome = $infos_stagiaire["nom_diplome"];
+    $date_naissance = $infos_stagiaire["date_naissance"];
+    $annee_diplome = $infos_stagiaire["annee_diplome"];
+    $id_formation = $infos_stagiaire["id_formation"];
+}
+?>
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="items/css/allproject.css"/>
+        <link rel="stylesheet" type="text/css" href="<?= $cssUrl?>"/>
         <title>Affichage d'un bulletin de notes</title>
     </head>
     <body>
         <main>
             <section>
                 <header id = "bulletin">
-                    <a href = "index.php"><img alt="logo" src="items/images/banniere.jpg"/></a>
-                    <h1 id = "diplome">Diplome préparé VARIABLE</h1>
-                    <p id = "annee">Année : VARIABLE</p>
+                    <a href = "index.php"><img alt="logo" src=""/></a>
+                    <h1 id = "diplome">Diplome préparé <?php echo $nom_diplome ?></h1>
+                    <p id = "annee">Année : <?php echo $annee_diplome ?></p>
                     <p id = 'semestre'>Semestre : <input type = 'radio' name = 'semestre' value ="1"/>1er<input type = 'radio' name = 'semestre' value ="2"/>2nd</p>
-                    <p id = "nom">Prénom Nom : VARIABLE</p>
-                    <p id = "date">Date de naissance : VARIABLE</p>
+                    <p id = "nom">Prénom Nom : <?php echo $prenom . " " . $nom ?></p>
+                    <p id = "date">Date de naissance : <?php echo $date_naissance ?> </p>
                 </header>
                 <table id = "notes">
                     <thead>
@@ -29,6 +39,20 @@
                             <th class = 'moyenne'> > + </th>
                         </tr>
                     </thead>
+                    <tbody>
+                        <?php
+                        foreach ($modules as $matiere) {
+                            echo "<tr>";
+                            echo "<td> $matiere[nom]</td>";
+                            echo "<td></td>";
+                            echo "<td>$matiere[moyenne]</td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                            echo "<td></td>";
+                        }
+                        ?>
+                    </tbody>
                     <tfoot>
                         <tr>
                             <th colspan="2">Moyenne générale</th>

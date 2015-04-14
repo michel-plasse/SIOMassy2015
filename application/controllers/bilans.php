@@ -33,7 +33,7 @@ class Bilans extends CI_Controller {
                 //Pas d'erreurs => suite du traitement
                 $this->load->helper('url');
                 Bilan_m::insert($_POST);
-                $url = site_url("welcome");
+                $url = base_url(uri_string());
                 header("Location: $url");
             }
         }

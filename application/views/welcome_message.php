@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+<?php include_once 'logout.php'; ?>
 <html lang="en">
     <head>
         <meta charset="utf-8">
         <title>Welcome to CodeIgniter</title>
 
         <style type="text/css">
-            
+
             ::selection{ background-color: #E13300; color: white; }
             ::moz-selection{ background-color: #E13300; color: white; }
             ::webkit-selection{ background-color: #E13300; color: white; }
@@ -76,7 +77,7 @@
             }
             nav{
                 display: inline-block;
-                
+
                 width: 100%;
             }
 
@@ -95,56 +96,77 @@
         </style>
     </head>
     <body>
-            <!--
-            <div id="menuGauche">
+        <!--
+        <div id="menuGauche">
+        <?php
+        $size = count($sessions);
+        echo form_dropdown("idSession", $sessions, NULL, "size=$size");
+        ?>
+          </select>
+        </div>
+        -->
+
+        <header>
+
+
+            <form id="FormConnexion" action="" method="post">
+                Email : <input type="text" name="email">
+                Mot de passe : <input type="password" name="mdp">
+                <button type="submit" name="connexion" >Connexion</button>
+            </form>
+
+
+
             <?php
-            $size = count($sessions);
-            echo form_dropdown("idSession", $sessions, NULL, "size=$size");
+            $email_valide = "admin";
+            $mdp_valide = "GretaMassy";
+
+            if (isset($_POST['email']) && isset($_POST['mdp'])) {
+
+                // on vérifie les informations du formulaire
+                if ($email_valide == $_POST['email'] && $mdp_valide == $_POST['mdp']) {
+                    //on peut démarrer notre session
+                    session_start();
+                    // on enregistre les paramètres comme variables de session ($email et $mdp)
+                    $_SESSION['email'] = $_POST['email'];
+                    $_SESSION['mdp'] = $_POST['mdp'];
+
+                    echo 'Vous êtes connecté en tant que' . $_POST['email'];
+                } else {
+                    // Le visiteur n'a pas été reconnu
+                    echo 'Membre non reconnu';
+                }
+            } else {
+
+                echo 'Connectez-vous pour accéder à votre espace personnel';
+            }
             ?>
-              </select>
-            </div>
-            -->
-            
-            <header>
-                <?php
-//                if()
-//                {
-//                    echo FormConnexion;
-//                }
-//                else {
-//                    echo FormDeconnexion;
-//                    
-//                }
-                ?>
-                <img src="items/images/banniere.jpg" alt="LogoGreta"/>
-       
-                <form id="FormConnexion" action="" method="post">
-                    Email : <input type="text" name="email">
-                    Mot de passe : <input type="password" name="mdp">
-                    <button type="submit" name="connexion" >Connexion</button>
-                </form>
 
-                <form id="FormDeconnexion" action="" method="post">
-                    <button type="submit" name="deconnexion">Déconnexion</button>
-                </form>
+            <form id="FormDeconnexion" action="" method="post">
+                <button type="submit" name="deconnexion">Déconnexion</button>
 
-            </header>
+            </form>
 
-            <nav>
-                <ul>
-                    <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
-                    <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
-                </ul>
-            </nav>
-            <!--      <div id="menuHaut">
-                    <a id="lienBilans" href="bilans">Conseils de classe</a>
-                    -
-                    <a id="lienEvaluations" href="evaluations">Evaluations</a>
-                   </div>-->
-            <div id="corps">
-                <h1>Proposition de maquette</h1>
-            </div>
-       
+
+            <img src="items/images/banniere.jpg" alt="LogoGreta"/>
+
+        </header>
+
+        <nav>
+            <ul>
+                <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
+                <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
+            </ul>
+        </nav>
+        <!--      <div id="menuHaut">
+                <a id="lienBilans" href="bilans">Conseils de classe</a>
+                -
+                <a id="lienEvaluations" href="evaluations">Evaluations</a>
+               </div>-->
+        <div id="corps">
+            <h1>Proposition de maquette</h1>
+        </div>
+
 
         <!--
          <div id="container">

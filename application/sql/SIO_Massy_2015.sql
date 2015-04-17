@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`personne` (
   `est_inscrite` TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Vrai quand l\'inscription est valdée',
   PRIMARY KEY (`id_personne`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module` (
   `nb_heures` INT NULL,
   `prerequis` VARCHAR(512) NULL,
   PRIMARY KEY (`id_module`))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`formation` (
   `nom` VARCHAR(45) NOT NULL,
   `description` TEXT NULL,
   PRIMARY KEY (`id_formation`))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`session` (
     REFERENCES `db524752934`.`formation` (`id_formation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -105,7 +105,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`formateur` (
     REFERENCES `db524752934`.`personne` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -136,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`evaluation` (
     REFERENCES `db524752934`.`formateur` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -158,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module_formation` (
     REFERENCES `db524752934`.`formation` (`id_formation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -168,7 +168,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`etat_candidature` (
   `id_etat_candidature` CHAR(1) NOT NULL,
   `libelle` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_etat_candidature`))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -199,7 +199,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`candidature` (
     REFERENCES `db524752934`.`etat_candidature` (`id_etat_candidature`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -210,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`salle` (
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_salle`),
   UNIQUE INDEX `nom_UNIQUE` (`nom` ASC))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -249,7 +249,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`seance` (
     REFERENCES `db524752934`.`salle` (`id_salle`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -271,7 +271,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`note` (
     REFERENCES `db524752934`.`personne` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -282,7 +282,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`theme` (
   `libelle` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_theme`),
   UNIQUE INDEX `libelle_UNIQUE` (`libelle` ASC))
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -304,7 +304,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module_theme` (
     REFERENCES `db524752934`.`theme` (`id_theme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -322,7 +322,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`bilan` (
     REFERENCES `db524752934`.`session` (`id_session`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -345,7 +345,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`bulletin` (
     REFERENCES `db524752934`.`bilan` (`id_bilan`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -382,7 +382,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`ligne_bulletin` (
     REFERENCES `db524752934`.`bilan` (`id_bilan`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- -----------------------------------------------------
@@ -411,7 +411,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`intervenant` (
     REFERENCES `db524752934`.`formateur` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB$$
 
 
 -- Remettre les contraintes d'intégrité
@@ -531,7 +531,7 @@ BEGIN
   (1, 'SI2', 'Enseigner aux élèves les bases sur le fonctionnement du réseau internet', 'Des TP et des cours', 30, 'Les prérequis sont le module SI1 et le binaire'),
   (2, 'Maths', 'Enseigner aux élèves les notions de mathématiques nécessaires en informatique', 'Des cours théoriques et du python', 50, 'Les prérequis sont le BAC'),
   (3, 'Anglais', 'Enseigner la compréhension orale et de texte', 'Des cours et beaucoup de pratique orale', 50, 'Les prérequis sont le BAC et un peu d''attention'),
-  (4, 'Montage video', 'Maîtriser le montage de vidéo (postproduction)', 'Principes du montage, logiciels, pratique en mode projet', 50, 'savoir utiliser windows')
+  (4, 'Montage video', 'Maîtriser le montage de vidéo (postproduction)', 'Principes du montage, logiciels, pratique en mode projet', 50, 'savoir utiliser windows'),
   (10, 'Culture générale', null, null, null, null),
   (11, 'Economie-droit', null, null, null, null),
   (12, 'Algorithmique', null, null, null, null),

@@ -158,6 +158,26 @@
 
 
 
+
+            <img src="items/images/banniere.jpg" alt="LogoGreta"/>
+
+        </header>
+
+        <nav>
+            <ul>
+                <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
+                <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
+            </ul>
+        </nav>
+        <!--      <div id="menuHaut">
+                <a id="lienBilans" href="bilans">Conseils de classe</a>
+                -
+                <a id="lienEvaluations" href="evaluations">Evaluations</a>
+               </div>-->
+        <div id="corps">
+            <h1>Proposition de maquette</h1>
+        </div>
+
             <nav>
                 <ul>
                     <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>

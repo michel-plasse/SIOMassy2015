@@ -699,6 +699,48 @@ BEGIN
 
 END$$
 
+DROP TRIGGER IF EXISTS bulletin_after_insert_trigger$$
+
+CREATE TRIGGER bulletin_after_insert_trigger
+AFTER INSERT ON bulletin
+FOR EACH ROW
+BEGIN
+    DECLARE v_id_module INT;
+    DECLARE v_id_formateur INT;
+    DECLARE v_termine BOOLEAN DEFAULT FALSE;
+    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur FROM bulletin INNER JOIN bilan ON bulletin.id_bilan = bilan.id_bilan 
+		INNER JOIN session ON bilan.id_session = session.id_session INNER JOIN intervenant ON session.id_session = intervenant.id_session 
+		where bulletin.id_bilan = NEW.id_bilan AND bulletin.id_stagiaire = NEW.id_stagiaire;
+    OPEN v_lignes;
+    BEGIN
+		DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
+        REPEAT
+			FETCH v_lignes INTO v_id_module, v_id_formateur;
+			INSERT INTO ligne_bulletin (id_module, id_formateur, id_stagiaire, id_bilan) VALUES (v_id_module, v_id_formateur, NEW.id_stagiaire, NEW.id_bilan);
+		UNTIL v_termine END REPEAT;
+	END;
+    CLOSE v_lignes;
+END$$
+
+DROP TRIGGER IF EXISTS bilan_after_insert_trigger$$
+
+CREATE TRIGGER bilan_after_insert_trigger
+AFTER INSERT ON bilan
+FOR EACH ROW
+BEGIN
+	DECLARE v_id_personne INT;
+    DECLARE v_termine BOOLEAN DEFAULT FALSE;
+    DECLARE v_lignes CURSOR FOR SELECT id_personne FROM stagiaire WHERE id_session = NEW.id_session;
+    OPEN v_lignes;
+    BEGIN
+		DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
+        REPEAT
+			FETCH v_lignes INTO v_id_personne;
+			INSERT INTO bulletin (id_stagiaire, id_bilan) VALUES (v_id_personne, NEW.id_bilan);
+		UNTIL v_termine END REPEAT;
+	END;
+    CLOSE v_lignes;
+END$$
 
 
 /*-------------------- Initialiser les données ---------*/

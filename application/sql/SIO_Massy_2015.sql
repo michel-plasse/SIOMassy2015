@@ -23,6 +23,10 @@ DROP TABLE IF EXISTS salle $$
 DROP TABLE IF EXISTS seance $$
 DROP TABLE IF EXISTS session $$
 DROP TABLE IF EXISTS theme $$
+
+-- -----------------------------------------------------
+-- Table `db524752934`.`personne`
+-- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db524752934`.`personne` (
   `id_personne` INT NOT NULL AUTO_INCREMENT,
   `civilite` VARCHAR(3) NOT NULL,

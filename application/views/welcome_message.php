@@ -129,8 +129,12 @@
                     // on enregistre les paramètres comme variables de session ($email et $mdp)
                     $_SESSION['email'] = $_POST['email'];
                     $_SESSION['mdp'] = $_POST['mdp'];
+                    ?>
+                    <form id="FormDeconnexion" action="" method="post">
+                        <button name="deconnexion $_SESSION[email]" type="button" >Déconnexion</button>
+                    </form>
 
-                    echo 'Vous êtes connecté en tant que ' . $_POST['email'];
+                    <?php
                 } else {
                     // Le visiteur n'a pas été reconnu
                     echo 'Membre non reconnu';
@@ -140,22 +144,6 @@
                 echo 'Connectez-vous pour accéder à votre espace personnel';
             }
             ?>
-
-
-
-
-            <form id="FormDeconnexion" action="" method="post">
-                <button name="deconnexion" type="button" >Déconnexion</button>
-            </form>
-            
-            <script>
-                function deconnexion() {
-                    session_unset();
-                    session_destroy();
-                    echo 'Vous êtes déconnecté'
-                }
-            </script>
-
 
 
 
@@ -178,22 +166,22 @@
             <h1>Proposition de maquette</h1>
         </div>
 
-            <nav>
-                <ul>
-                    <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
-                    <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
-                    <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
-                </ul>
-            </nav>
-            <!--      <div id="menuHaut">
-                    <a id="lienBilans" href="bilans">Conseils de classe</a>
-                    -
-                    <a id="lienEvaluations" href="evaluations">Evaluations</a>
-                   </div>-->
-            <div id="corps">
-                <h1>Proposition de maquette</h1>
-            </div>
-       
+        <nav>
+            <ul>
+                <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
+                <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
+                <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
+            </ul>
+        </nav>
+        <!--      <div id="menuHaut">
+                <a id="lienBilans" href="bilans">Conseils de classe</a>
+                -
+                <a id="lienEvaluations" href="evaluations">Evaluations</a>
+               </div>-->
+        <div id="corps">
+            <h1>Proposition de maquette</h1>
+        </div>
+
 
         <!--
          <div id="container">

@@ -1,5 +1,8 @@
 <header>
   <?php
+  if (!isset($msgConnexion)) {
+    $msgConnexion = "";
+  }
   if (isset($_SESSION["email"])) {
     $url = base_url("connexion/fin");
     ?>

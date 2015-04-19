@@ -6,25 +6,26 @@
     <body>
         <section>
             <header id = "liste_bilans" method = "POST">
-                <h1>Liste des stagaires</h1>
+                <h1>Liste des stagiaires</h1>
             </header>
             <?php
-            echo "<dl>";
+            echo "<ul>";
             $idSession = 0;
             for ($i = 0; $i < count($stagiaires); $i++) {
                 $row = $stagiaires[$i];
                 if ($row["id_session"] != $idSession) {
-                    $dt = "<dt>$row[nom_session]</dt>\n";
+                    $li1 = "<li>$row[nom_session]</li>\n";
                     $idSession = $row["id_session"];
                 } else {
-                    $dt = "";
+                    $li1 = "";
                 }
+                $idBilan = 0;
                 $id_personne = $row["id_personne"];
                 $id_formation = $row["id_formation"];
+                $id_bilan = $row["id_bilan"];
                 $personne = $row["prenom"] . " " . $row["nom"];
-                $dd = "<dd><a href ='bulletin_notes/index/$id_personne/$id_formation'>- $personne</a></dd>";
-
-                echo "$dt $dd";
+                $li3 = "<li><a href ='bulletin_notes/index/$id_personne/$id_formation/$id_bilan'>- $personne</a></li>";
+                echo "$li1 $li3";
             }
             ?>
         </section>

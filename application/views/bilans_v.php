@@ -41,14 +41,14 @@ $dateError = form_error("date");
                     $idSession = $row["id_session"];
                     ?>
                     <form id="liste_session<?php echo $row['id_session'] ?>" method="POST" style="display: inline;">
-                         <input type="hidden" name="id_session" value="<?= $idSession ?>"/>
+                        <input type="hidden" name="id_session" value="<?= $idSession ?>"/>
                         (<label id = "date"> Date :</label>
                         <input type = "text" name = "date" placeholder = "Date du bilan" data-beatpicker = "true" data-beatpicker-position = "['10','50']"
                                data-beatpicker-extra = "customOptions" data-beatpicker-format = "['YYYY','MM','DD'],separator:'-'"
                                data-beatpicker-module = "icon"/>
                                <?= $dateError ?>
                         <button type="submit">Ajouter</button>)
-                     </form>
+                    </form>
                     <?php
                 } else {
                     $dt = "";

@@ -15,9 +15,15 @@ class Bulletin_notes extends CI_Controller {
             $data["cssUrl"] = base_url("items/css/allproject.css");
             $this->load->view('bulletin_notes_v', $data);
         } else {
-            Bulletin_notes_m::updateBulletin($_POST);
-            $url = base_url(uri_string());
-            header("Location: $url");
+            if (isset($_POST['bulletin'])) {
+                Bulletin_notes_m::updateBulletin($_POST);
+                $url = base_url(uri_string());
+                header("Location: $url");
+            } elseif (isset($_POST['ligne_b'])) {
+                Bulletin_notes_m::updateLigneBulletin($_POST);
+                $url = base_url(uri_string());
+                header("Location: $url");
+            }
         }
     }
 

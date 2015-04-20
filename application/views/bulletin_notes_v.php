@@ -52,13 +52,18 @@ foreach ($moyennes as $moyenne) {
                         <?php
                         foreach ($stagiaire as $info) {
                             echo "<tr>";
-                            echo "<td> $info[matiere]</td>";
-                            echo "<td> $info[prenom_formateur] $info[nom_formateur]</td>";
+                            echo "<td>$info[matiere]</td>";
+                            echo "<td>$info[prenom_formateur] $info[nom_formateur]</td>";
                             echo "<td>$info[moyenne]</td>";
                             echo "<td>$info[min_classe]</td>";
                             echo "<td>$info[moyenne_classe]</td>";
                             echo "<td>$info[max_classe]</td>";
-                            echo "<td><form><textarea rows='1' cols='150'>$info[avis_prof]</textarea><button type='button'>Valider</button></form></td>";
+                            echo "<td><form method='POST'>
+                                        <input type='hidden' name='id_formateur' value=$info[id_formateur]/>
+                                        <input type='hidden' name='id_bilan' value=$info[id_bilan]/>
+                                        <input type='hidden' name='id_module' value=$info[id_module]/>
+                                        <input type='hidden' name='id_stagiaire' value=$info[id_personne]/>
+                                        <textarea name='commentaire' rows='1' cols='150'>$info[avis_prof]</textarea><button type='submit' name='ligne_b'>Valider</button></form></td>";
                         }
                         ?>
                     </tbody>
@@ -79,13 +84,14 @@ foreach ($moyennes as $moyenne) {
                         </tr>
                     </thead>
                     <tbody>
-                    <form>
+                    <form method="POST">
                         <input type="hidden" name="id_stagiaire" value="<?= $id_stagiaire ?>"/>
                         <input type="hidden" name="id_bilan" value="<?= $id_bilan ?>"/>
                         <tr>
-                            <?php
-                            echo "<td><form><textarea name='commentaire' rows='10' cols='150'>$avis_proviseur</textarea><button type='button'>Valider</button></form></td>";
-                            ?>
+                            <td>
+                                <input type="text" name="commentaire" value="<?= $avis_proviseur ?>">
+                                <button type="submit" name="bulletin">Valider</button>
+                            </td>
                         </tr>
                     </form>
                     </tbody>

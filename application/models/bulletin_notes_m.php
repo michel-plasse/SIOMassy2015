@@ -1,5 +1,7 @@
 <?php
 
+require_once 'DB.php';
+
 class Bulletin_notes_m extends CI_Model {
 
     public function __construct() {
@@ -69,6 +71,27 @@ class Bulletin_notes_m extends CI_Model {
     $stmt->bindParam(":commentaire", $data["commentaire"]);
     $stmt->bindParam(":id_stagiaire", $data["id_stagiaire"]);
     $stmt->bindParam(":id_bilan", $data["id_bilan"]);
+    $ok = $stmt->execute();
+    if ($ok == FALSE) {
+      $error = $db->errorInfo();
+      throw new Exception($error[0], $error[1]);
+    }
+  }
+  
+  public function updateLigneBulletin($data) {
+    $db = DB::getConnection();
+    $sql = "UPDATE ligne_bulletin
+            SET commentaire = :commentaire
+            WHERE id_stagiaire = :id_stagiaire
+            AND id_bilan = :id_bilan
+            AND id_formateur = :id_formateur
+            AND id_module = :id_module";
+    $stmt = $db->prepare($sql);
+    $stmt->bindParam(":commentaire", $data["commentaire"]);
+    $stmt->bindParam(":id_stagiaire", $data["id_stagiaire"]);
+    $stmt->bindParam(":id_bilan", $data["id_bilan"]);
+    $stmt->bindParam(":id_formateur", $data["id_formateur"]);
+    $stmt->bindParam(":id_module", $data["id_module"]);
     $ok = $stmt->execute();
     if ($ok == FALSE) {
       $error = $db->errorInfo();

@@ -22,7 +22,7 @@ class Connexion extends CI_Controller {
     } else {
       $data["msgConnexion"] = "Email ou mot de passe inconnu";
     }
-    $this->load->view("welcome_message", $data);
+    $this->load->view("welcome_v", $data);
   }
 
   /** Terminer la connexion */
@@ -30,7 +30,7 @@ class Connexion extends CI_Controller {
     session_start();
     session_destroy();
     $data = array("msgConnexion" => "Vous avez été déconnecté");
-    $this->load->view("welcome_message", $data);
+    $this->load->view("welcome_v", $data);
   }
 
 }

@@ -16,12 +16,15 @@ $dateError = form_error("date");
         <link rel="stylesheet" type="text/css" href="items/css/BeatPicker.min.css"/>
         <script type="text/javascript" src = "items/js/jquery.1.8.3.js"></script>
         <script type="text/javascript" src="items/js/BeatPicker.min.js"></script>
-        <title>Liste des bilans/ Conseils de classe</title>
+        <title>Liste des conseils de classe</title>
     </head>
     <body>
         <section>
+            <?php
+            $this->load->view('header_v');
+            ?>
             <header id = "liste_bilans" method = "POST">
-                <h1>Listes des bilans/ Conseils de classe</h1>
+                <h1>Listes des conseils de classe</h1>
             </header>
             <?php
             echo "<dl>";

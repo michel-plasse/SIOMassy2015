@@ -5,6 +5,9 @@
     </head>
     <body>
         <section>
+            <?php
+            $this->load->view('header_v');
+            ?>
             <header id = "liste_bilans" method = "POST">
                 <h1>Liste des stagiaires</h1>
             </header>

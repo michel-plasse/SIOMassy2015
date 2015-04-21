@@ -23,6 +23,9 @@ foreach ($moyennes as $moyenne) {
         <title>Affichage d'un bulletin de notes</title>
     </head>
     <body>
+        <?php
+        $this->load->view('header_v');
+        ?>
         <main>
             <section>
                 <header id = "bulletin">

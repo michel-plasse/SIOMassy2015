@@ -43,7 +43,7 @@ class Menus_m extends CI_Model {
 
   /** Stagiaires de la session de id $idSession */
   public function getStagiaires($idSession) {
-    $sql = "SELECT id_personne AS value, concat(prenom, ' ', nom) AS text
+    $sql = "SELECT id_stagiaire AS value, concat(prenom, ' ', nom) AS text
             FROM stagiaire
             WHERE id_session = $idSession ";
     return $this->getMap($sql);
@@ -75,9 +75,9 @@ class Menus_m extends CI_Model {
 
   /** Formateurs */
   public function getFormateurs() {
-    $sql = "SELECT f.id_personne AS value, concat(prenom, ' ', nom) AS text
+    $sql = "SELECT f.id_formateur AS value, concat(prenom, ' ', nom) AS text
 FROM personne p INNER JOIN formateur f
-ON p.id_personne = f.id_personne";
+ON p.id_personne = f.id_formateur";
     return $this->getMap($sql);
   }
 

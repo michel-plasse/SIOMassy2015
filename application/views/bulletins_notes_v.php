@@ -20,11 +20,11 @@
                     $li1 = "";
                 }
                 $idBilan = 0;
-                $id_personne = $row["id_personne"];
+                $id_stagiaire = $row["id_stagiaire"];
                 $id_formation = $row["id_formation"];
                 $id_bilan = $row["id_bilan"];
                 $personne = $row["prenom"] . " " . $row["nom"];
-                $li3 = "<li><a href ='bulletin_notes/index/$id_personne/$id_formation/$id_bilan'>- $personne</a></li>";
+                $li3 = "<li><a href ='bulletin_notes/index/$id_stagiaire/$id_formation/$id_bilan'>- $personne</a></li>";
                 echo "$li1 $li3";
             }
             ?>

@@ -7,7 +7,7 @@ foreach ($stagiaire as $infos_stagiaire) {
     $annee_diplome = $infos_stagiaire["annee"];
     $avis_proviseur = $infos_stagiaire["avis_proviseur"];
     $id_bilan = $infos_stagiaire["id_bilan"];
-    $id_stagiaire = $infos_stagiaire["id_personne"];
+    $id_stagiaire = $infos_stagiaire["id_stagiaire"];
     $id_module = $infos_stagiaire["id_module"];
     $id_formateur = $infos_stagiaire["id_formateur"];
 }
@@ -62,7 +62,7 @@ foreach ($moyennes as $moyenne) {
                                         <input type='hidden' name='id_formateur' value=$info[id_formateur]/>
                                         <input type='hidden' name='id_bilan' value=$info[id_bilan]/>
                                         <input type='hidden' name='id_module' value=$info[id_module]/>
-                                        <input type='hidden' name='id_stagiaire' value=$info[id_personne]/>
+                                        <input type='hidden' name='id_stagiaire' value=$info[id_stagiaire]/>
                                         <textarea name='commentaire' rows='1' cols='150'>$info[avis_prof]</textarea><button type='submit' name='ligne_b'>Valider</button></form></td>";
                         }
                         ?>

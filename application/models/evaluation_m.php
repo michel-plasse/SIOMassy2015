@@ -39,15 +39,15 @@ class Evaluation_m extends CI_Model {
      *  Fournit id_stagiaire, prenom, nom, note.
      */
     public function getNotesByIdEval($idEval) {
-        $sql = "SELECT s.id_personne AS id_stagiaire, s.prenom, s.nom, n.note
+        $sql = "SELECT s.id_stagiaire AS id_stagiaire, s.prenom, s.nom, n.note
       FROM stagiaire s LEFT OUTER JOIN
       (
-        SELECT id_personne, note
+        SELECT id_stagiaire, note
         FROM note n INNER JOIN evaluation e
         ON n.id_evaluation = e.id_evaluation
         WHERE e.id_evaluation = $idEval
       ) n
-       ON s.id_personne = n.id_personne
+       ON s.id_stagiaire = n.id_stagiaire
        WHERE s.id_session =
        (
         SELECT id_session

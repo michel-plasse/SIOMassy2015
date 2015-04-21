@@ -17,12 +17,10 @@ class Bulletin_notes extends CI_Controller {
         } else {
             if (isset($_POST['bulletin'])) {
                 Bulletin_notes_m::updateBulletin($_POST);
-                $url = base_url(uri_string());
-                header("Location: $url");
+                redirect(uri_string());
             } elseif (isset($_POST['ligne_b'])) {
                 Bulletin_notes_m::updateLigneBulletin($_POST);
-                $url = base_url(uri_string());
-                header("Location: $url");
+                redirect(uri_string());
             }
         }
     }

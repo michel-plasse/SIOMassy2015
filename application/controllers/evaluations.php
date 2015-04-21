@@ -42,5 +42,12 @@ class Evaluations extends CI_Controller {
         }
         redirect("/evaluations/get/$id_evaluation");
     }
-
+    
+    function  mobile($idStagiaire){
+        header("Content-type: text/plain; charset=UTF-8");
+        $notes = $this->evaluation_m->getNotesByStagiaire($idStagiaire);
+        foreach ($notes as $note) {
+            print implode(";", $note)."\n";
+        }
+    }
 }

@@ -1,5 +1,6 @@
-﻿<html>
+﻿<html lang="fr">
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
         <title>Liste des stagaires</title>
     </head>
@@ -24,10 +25,9 @@
                 }
                 $idBilan = 0;
                 $id_stagiaire = $row["id_stagiaire"];
-                $id_formation = $row["id_formation"];
                 $id_bilan = $row["id_bilan"];
                 $personne = $row["prenom"] . " " . $row["nom"];
-                $li3 = "<li><a href ='bulletin_notes/index/$id_stagiaire/$id_formation/$id_bilan'>- $personne</a></li>";
+                $li3 = "<li><a href ='bulletin_notes/index/$idSession/$id_bilan/$id_stagiaire'>- $personne</a></li>";
                 echo "$li1 $li3";
             }
             ?>

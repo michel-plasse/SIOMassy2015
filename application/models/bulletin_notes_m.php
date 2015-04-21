@@ -50,7 +50,7 @@ class Bulletin_notes_m extends CI_Model {
     }
 
     public function getAll() {
-        $sql = "SELECT s.id_session, s.nom AS nom_session, st.prenom AS prenom, st.nom AS nom, st.id_stagiaire, s.id_formation, b.id_bilan, b.date_effet
+        $sql = "SELECT s.id_session, s.nom AS nom_session, st.prenom AS prenom, st.nom AS nom, st.id_stagiaire, b.id_bilan, b.date_effet
                 FROM session s
                     INNER JOIN stagiaire st
                         ON s.id_session = st.id_session

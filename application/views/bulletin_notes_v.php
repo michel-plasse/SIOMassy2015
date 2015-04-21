@@ -17,8 +17,9 @@ foreach ($moyennes as $moyenne) {
 }
 ?>
 
-<html>
+<html lang="fr">
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
         <title>Affichage d'un bulletin de notes</title>
     </head>
@@ -34,7 +35,7 @@ foreach ($moyennes as $moyenne) {
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
                     <p id = 'semestre'>Semestre : <input type = 'radio' name = 'semestre' value ="1"/>1er<input type = 'radio' name = 'semestre' value ="2"/>2nd</p>
                     <p id = "nom">Prénom Nom : <?php echo $prenom_stagiaire . " " . $nom_stagiaire ?></p>
-                    <p id = "date">Date de naissance : <?php echo $date_naissance ?> </p>
+                    <p id = "date">Date de naissance : <?php echo date_format(date_create($date_naissance), 'd-m-Y') ?> </p>
                 </header>
                 <table id = "notes">
                     <thead>

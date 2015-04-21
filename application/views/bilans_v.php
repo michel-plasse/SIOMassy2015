@@ -10,8 +10,9 @@ $date = set_value("date");
 // Erreur associée au champ date_effet
 $dateError = form_error("date");
 ?> 
-﻿<html>
+﻿<html lang="fr">
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
         <link rel="stylesheet" type="text/css" href="<?= $cssBPUrl ?>"/>
         <script type="text/javascript" src = "<?= $biblioJSUrl ?>"></script>

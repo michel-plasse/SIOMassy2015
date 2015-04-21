@@ -666,6 +666,27 @@ BEGIN
 END$$
 
 
+
+/* Insère une note ou la met à jour */
+DROP PROCEDURE IF EXISTS insert_update_note$$
+CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_note DECIMAL(3,1)) 
+ BEGIN
+	DECLARE v_note DECIMAL(3,1);
+    SELECT note INTO v_note
+    FROM note
+    WHERE id_evaluation = p_id_evaluation AND id_stagiaire = p_id_stagiaire;
+    IF v_note IS NULL THEN
+		-- inserer
+        INSERT INTO note (id_evaluation, id_stagiaire, note)
+        VALUES (p_id_evaluation, p_id_stagiaire, p_note);	
+	ELSE
+		-- mettre a jour
+        UPDATE note
+        SET note = p_note
+        WHERE id_evaluation = p_id_evaluation AND id_stagiaire = p_id_stagiaire;
+	END IF;
+END$$
+
 /*--------------------- Declencheurs ------------*/
 
 DROP TRIGGER IF EXISTS salle_before_update_trigger $$

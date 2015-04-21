@@ -1,4 +1,7 @@
+<!DOCTYPE html>
+
 <?php
+session_start();
 //$errors = validation_errors();
 $errors = "";
 // Valeur du champ id depuis $_POST (fonction form_helper)
@@ -9,8 +12,9 @@ $idError = form_error("id_session");
 $date = set_value("date");
 // Erreur associée au champ date_effet
 $dateError = form_error("date");
-?> 
-﻿<html lang="fr">
+?>
+
+<html lang="fr">
     <head>
         <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>

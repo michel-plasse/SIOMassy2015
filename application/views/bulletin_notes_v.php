@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 <?php
+session_start();
 foreach ($stagiaire as $infos_stagiaire) {
     $nom_stagiaire = $infos_stagiaire["nom_stagiaire"];
     $prenom_stagiaire = $infos_stagiaire["prenom_stagiaire"];
@@ -30,7 +32,6 @@ foreach ($moyennes as $moyenne) {
         <main>
             <section>
                 <header id = "bulletin">
-                    <a href = "index.php"><img alt="logo" src=""/></a>
                     <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
                     <p id = 'semestre'>Semestre : <input type = 'radio' name = 'semestre' value ="1"/>1er<input type = 'radio' name = 'semestre' value ="2"/>2nd</p>

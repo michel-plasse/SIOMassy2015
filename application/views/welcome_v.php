@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+<?php session_start();
+?>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
@@ -17,11 +19,9 @@
                     <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
                 </ul>
             </nav>
-
             <section id="corps">
                 <h1>Proposition de maquette</h1>
-            </section>>
-
+            </section>
             <footer class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</footer>
         </main>
     </body>

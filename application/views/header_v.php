@@ -1,5 +1,9 @@
 <header>
     <?php
+    $url = base_url("items/images/banniere.jpg");
+    ?>
+    <a href = "<?= base_url() ?>"><img src="<?= $url ?>" alt = "LogoGreta"/></a>
+    <?php
     if (!isset($msgConnexion)) {
         $msgConnexion = "";
     }
@@ -15,13 +19,12 @@
         $url = base_url("connexion");
         ?>
         <form id="FormConnexion" action="<?= $url ?>" method="post">
-            Email : <input type="text" name="email" value="<?= $this->input->post('email') ?>">
-            Mot de passe : <input type="password" name="mdp">
+            <input type="text" name="email" placeholder="Email" value="<?= $this->input->post('email') ?>">
+            <input type="password" name="mdp" placeholder="Mot de passe">
             <button type="submit" name="connexion" >Connexion</button>
             <?= $msgConnexion ?>
         </form>
         <?php
     }
     ?>
-    <img src = "items/images/banniere.jpg" alt = "LogoGreta"/>
 </header>

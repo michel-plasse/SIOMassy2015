@@ -19,7 +19,7 @@ $url = base_url("/evaluations/note");
                     <th>Note</th>
                 </tr>
                 <?php
-                $verif = FALSE;
+                $verif = TRUE;
                 if ($verif == TRUE) {
                     foreach ($notes as $ligne) {
                         // Url de l'espace personnel du stagiaire

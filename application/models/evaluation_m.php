@@ -45,7 +45,7 @@ class Evaluation_m extends CI_Model {
         SELECT id_personne, note
         FROM note n INNER JOIN evaluation e
         ON n.id_evaluation = e.id_evaluation
-        WHERE e.id_evaluation = 1
+        WHERE e.id_evaluation = $idEval
       ) n
        ON s.id_personne = n.id_personne
        WHERE s.id_session =
@@ -63,11 +63,8 @@ class Evaluation_m extends CI_Model {
      * 
      */
     public function updateNote($id_stagiaire, $id_evaluation, $note) {
-        $sql = "update note
-            set note = $note
-            where id_personne = $id_stagiaire AND id_evaluation=$id_evaluation";
-        $sql ="INSERT INTO note(id_personne, id_evaluation, note)
-               VALUES ($id_stagiaire, $id_evaluation, $note)";
+        
+        $sql = "CALL insert_update_note($id_evaluation, $id_stagiaire, $note)";
         $query = $this->db->query($sql);
         return $query;
     }

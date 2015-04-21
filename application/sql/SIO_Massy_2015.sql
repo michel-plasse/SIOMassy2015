@@ -444,7 +444,72 @@ CREATE VIEW stagiaire AS
     WHERE
         id_etat_candidature = 5 $$
 
+DROP VIEW IF EXISTS bulletin_note $$
 
+CREATE VIEW bulletin_note AS
+
+	SELECT formation.nom AS diplome,
+			YEAR(session.date_fin) AS annee,
+			stagiaire.id_personne,
+			stagiaire.prenom AS prenom_stagiaire, 
+			stagiaire.nom AS nom_stagiaire, 
+			stagiaire.date_naissance,
+			stagiaire.id_session,
+			module.id_module,
+			module.nom AS matiere,
+			formateur.id_formateur,
+			personne.prenom AS prenom_formateur,
+			personne.nom AS nom_formateur,
+			AVG(note.note) AS moyenne,
+			ligne_bulletin.commentaire AS avis_prof,
+			bulletin.commentaire AS avis_proviseur,
+            bilan.id_bilan,
+            bilan.date_effet AS date_bilan
+	FROM ligne_bulletin
+		INNER JOIN module
+			ON ligne_bulletin.id_module = module.id_module
+		INNER JOIN stagiaire
+			ON ligne_bulletin.id_stagiaire = stagiaire.id_personne
+		INNER JOIN formateur
+			ON ligne_bulletin.id_formateur = formateur.id_formateur
+		INNER JOIN bilan
+			ON ligne_bulletin.id_bilan = bilan.id_bilan
+		INNER JOIN personne
+			ON formateur.id_formateur = personne.id_personne
+		INNER JOIN bulletin
+			ON bilan.id_bilan = bulletin.id_bilan
+			AND stagiaire.id_personne = bulletin.id_stagiaire
+		INNER JOIN module_formation
+			ON module.id_module = module_formation.id_module
+		INNER JOIN formation
+			ON module_formation.id_formation = formation.id_formation
+		INNER JOIN evaluation
+			ON module.id_module = evaluation.id_module
+			AND formateur.id_formateur = evaluation.id_formateur
+			AND stagiaire.id_session = evaluation.id_session
+		INNER JOIN note
+			ON evaluation.id_evaluation = note.id_evaluation
+			AND stagiaire.id_personne = note.id_personne
+		INNER JOIN session
+			ON stagiaire.id_session = session.id_session
+		WHERE evaluation.date_effet <= bilan.date_effet
+			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01') 
+	GROUP BY formation.nom,
+			YEAR(session.date_fin),
+			stagiaire.id_personne,
+			stagiaire.prenom, 
+			stagiaire.nom, 
+			stagiaire.date_naissance,
+			stagiaire.id_session,
+			module.id_module,
+			module.nom,
+			formateur.id_formateur,
+			personne.prenom,
+			personne.nom,
+			ligne_bulletin.commentaire,
+			bulletin.commentaire,
+            bilan.id_bilan,
+            bilan.date_effet $$
 
 /*------------------------ Fonctions -------- */
 DROP FUNCTION IF EXISTS initcap $$

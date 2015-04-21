@@ -1,16 +1,25 @@
 <?php
 foreach ($stagiaire as $infos_stagiaire) {
-    $nom = $infos_stagiaire["nom"];
-    $prenom = $infos_stagiaire["prenom"];
-    $nom_diplome = $infos_stagiaire["nom_diplome"];
+    $nom_stagiaire = $infos_stagiaire["nom_stagiaire"];
+    $prenom_stagiaire = $infos_stagiaire["prenom_stagiaire"];
+    $diplome = $infos_stagiaire["diplome"];
     $date_naissance = $infos_stagiaire["date_naissance"];
-    $annee_diplome = $infos_stagiaire["annee_diplome"];
-    $id_formation = $infos_stagiaire["id_formation"];
+    $annee_diplome = $infos_stagiaire["annee"];
+    $avis_proviseur = $infos_stagiaire["avis_proviseur"];
+    $id_bilan = $infos_stagiaire["id_bilan"];
+    $id_stagiaire = $infos_stagiaire["id_personne"];
+    $id_module = $infos_stagiaire["id_module"];
+    $id_formateur = $infos_stagiaire["id_formateur"];
+}
+foreach ($moyennes as $moyenne) {
+    $moyenne_stagiaire = $moyenne["moyenne_stagiaire"];
+    $moyenne_classe = $moyenne["moyenne_classe"];
 }
 ?>
+
 <html>
     <head>
-        <link rel="stylesheet" type="text/css" href="<?= $cssUrl?>"/>
+        <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
         <title>Affichage d'un bulletin de notes</title>
     </head>
     <body>
@@ -18,10 +27,10 @@ foreach ($stagiaire as $infos_stagiaire) {
             <section>
                 <header id = "bulletin">
                     <a href = "index.php"><img alt="logo" src=""/></a>
-                    <h1 id = "diplome">Diplome préparé <?php echo $nom_diplome ?></h1>
+                    <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
                     <p id = 'semestre'>Semestre : <input type = 'radio' name = 'semestre' value ="1"/>1er<input type = 'radio' name = 'semestre' value ="2"/>2nd</p>
-                    <p id = "nom">Prénom Nom : <?php echo $prenom . " " . $nom ?></p>
+                    <p id = "nom">Prénom Nom : <?php echo $prenom_stagiaire . " " . $nom_stagiaire ?></p>
                     <p id = "date">Date de naissance : <?php echo $date_naissance ?> </p>
                 </header>
                 <table id = "notes">
@@ -41,32 +50,32 @@ foreach ($stagiaire as $infos_stagiaire) {
                     </thead>
                     <tbody>
                         <?php
-                        foreach ($modules as $matiere) {
+                        foreach ($stagiaire as $info) {
                             echo "<tr>";
-                            echo "<td> $matiere[nom]</td>";
-                            echo "<td></td>";
-                            echo "<td>$matiere[moyenne]</td>";
-                            echo "<td></td>";
-                            echo "<td></td>";
-                            echo "<td></td>";
-                            echo "<td></td>";
+                            echo "<td>$info[matiere]</td>";
+                            echo "<td>$info[prenom_formateur] $info[nom_formateur]</td>";
+                            echo "<td>$info[moyenne]</td>";
+                            echo "<td>$info[min_classe]</td>";
+                            echo "<td>$info[moyenne_classe]</td>";
+                            echo "<td>$info[max_classe]</td>";
+                            echo "<td><form method='POST'>
+                                        <input type='hidden' name='id_formateur' value=$info[id_formateur]/>
+                                        <input type='hidden' name='id_bilan' value=$info[id_bilan]/>
+                                        <input type='hidden' name='id_module' value=$info[id_module]/>
+                                        <input type='hidden' name='id_stagiaire' value=$info[id_personne]/>
+                                        <textarea name='commentaire' rows='1' cols='150'>$info[avis_prof]</textarea><button type='submit' name='ligne_b'>Valider</button></form></td>";
                         }
                         ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th colspan="2">Moyenne générale</th>
-                            <th>VARIABLE</th>
+                            <th><?php echo $moyenne_stagiaire ?></th>
                             <th></th>
-                            <th>VARIABLE</th>
+                            <th><?php echo $moyenne_classe ?></th>
                             <th colspan="2"></th>
                         </tr>
                     </tfoot>
-                    <tbody>
-
-                        <!-- A partir de la, TR et TD générés automatiquement -->
-
-                    </tbody>
                 </table>
                 <table id = "appréciation">
                     <thead>
@@ -75,9 +84,16 @@ foreach ($stagiaire as $infos_stagiaire) {
                         </tr>
                     </thead>
                     <tbody>
+                    <form method="POST">
+                        <input type="hidden" name="id_stagiaire" value="<?= $id_stagiaire ?>"/>
+                        <input type="hidden" name="id_bilan" value="<?= $id_bilan ?>"/>
                         <tr>
-                            <td></td>
+                            <td>
+                                <input type="text" name="commentaire" value="<?= $avis_proviseur ?>">
+                                <button type="submit" name="bulletin">Valider</button>
+                            </td>
                         </tr>
+                    </form>
                     </tbody>
                 </table>
                 <table id = "signature">

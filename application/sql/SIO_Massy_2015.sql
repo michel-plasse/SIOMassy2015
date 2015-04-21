@@ -24,6 +24,7 @@ DROP TABLE IF EXISTS seance $$
 DROP TABLE IF EXISTS session $$
 DROP TABLE IF EXISTS theme $$
 
+
 -- -----------------------------------------------------
 -- Table `db524752934`.`personne`
 -- -----------------------------------------------------
@@ -44,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`personne` (
   `est_inscrite` TINYINT(1) NOT NULL DEFAULT '0' COMMENT 'Vrai quand l\'inscription est valdée',
   PRIMARY KEY (`id_personne`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -58,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module` (
   `nb_heures` INT NULL,
   `prerequis` VARCHAR(512) NULL,
   PRIMARY KEY (`id_module`))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -69,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`formation` (
   `nom` VARCHAR(45) NOT NULL,
   `description` TEXT NULL,
   PRIMARY KEY (`id_formation`))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -91,21 +92,21 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`session` (
     REFERENCES `db524752934`.`formation` (`id_formation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
 -- Table `db524752934`.`formateur`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db524752934`.`formateur` (
-  `id_personne` INT NOT NULL,
-  PRIMARY KEY (`id_personne`),
+  `id_formateur` INT NOT NULL,
+  PRIMARY KEY (`id_formateur`),
   CONSTRAINT `fk_formateur_personne1`
-    FOREIGN KEY (`id_personne`)
+    FOREIGN KEY (`id_formateur`)
     REFERENCES `db524752934`.`personne` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -133,10 +134,10 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`evaluation` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_evaluation_formateur1`
     FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
+    REFERENCES `db524752934`.`formateur` (`id_formateur`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -158,7 +159,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module_formation` (
     REFERENCES `db524752934`.`formation` (`id_formation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -168,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`etat_candidature` (
   `id_etat_candidature` CHAR(1) NOT NULL,
   `libelle` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_etat_candidature`))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -199,7 +200,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`candidature` (
     REFERENCES `db524752934`.`etat_candidature` (`id_etat_candidature`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -210,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`salle` (
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_salle`),
   UNIQUE INDEX `nom_UNIQUE` (`nom` ASC))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -241,7 +242,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`seance` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_seance_formateur1`
     FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
+    REFERENCES `db524752934`.`formateur` (`id_formateur`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_seance_salle1`
@@ -249,7 +250,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`seance` (
     REFERENCES `db524752934`.`salle` (`id_salle`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -257,21 +258,21 @@ ENGINE = InnoDB$$
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db524752934`.`note` (
   `id_evaluation` INT NOT NULL,
-  `id_personne` INT NOT NULL,
+  `id_stagiaire` INT NOT NULL,
   `note` DECIMAL(3,1) NOT NULL,
-  PRIMARY KEY (`id_evaluation`, `id_personne`),
-  INDEX `fk_note_personne1_idx` (`id_personne` ASC),
+  PRIMARY KEY (`id_evaluation`, `id_stagiaire`),
+  INDEX `fk_note_personne1_idx` (`id_stagiaire` ASC),
   CONSTRAINT `fk_note_evaluation1`
     FOREIGN KEY (`id_evaluation`)
     REFERENCES `db524752934`.`evaluation` (`id_evaluation`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_note_personne1`
-    FOREIGN KEY (`id_personne`)
+    FOREIGN KEY (`id_stagiaire`)
     REFERENCES `db524752934`.`personne` (`id_personne`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -282,7 +283,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`theme` (
   `libelle` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id_theme`),
   UNIQUE INDEX `libelle_UNIQUE` (`libelle` ASC))
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -304,7 +305,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`module_theme` (
     REFERENCES `db524752934`.`theme` (`id_theme`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -322,7 +323,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`bilan` (
     REFERENCES `db524752934`.`session` (`id_session`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -331,7 +332,7 @@ ENGINE = InnoDB$$
 CREATE TABLE IF NOT EXISTS `db524752934`.`bulletin` (
   `id_stagiaire` INT NOT NULL,
   `id_bilan` INT NOT NULL,
-  `commentaire` VARCHAR(250) NOT NULL,
+  `commentaire` VARCHAR(250) NULL,
   INDEX `personne1_idx` (`id_stagiaire` ASC),
   INDEX `bilan1_idx` (`id_bilan` ASC),
   PRIMARY KEY (`id_stagiaire`, `id_bilan`),
@@ -345,7 +346,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`bulletin` (
     REFERENCES `db524752934`.`bilan` (`id_bilan`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -356,7 +357,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`ligne_bulletin` (
   `id_formateur` INT NOT NULL,
   `id_stagiaire` INT NOT NULL,
   `id_bilan` INT NOT NULL,
-  `commentaire` VARCHAR(45) NULL,
+  `commentaire` VARCHAR(250) NULL,
   PRIMARY KEY (`id_module`, `id_formateur`, `id_stagiaire`, `id_bilan`),
   INDEX `module1_idx` (`id_module` ASC),
   INDEX `formateur1_idx` (`id_formateur` ASC),
@@ -369,7 +370,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`ligne_bulletin` (
     ON UPDATE NO ACTION,
   CONSTRAINT `formateur1`
     FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
+    REFERENCES `db524752934`.`formateur` (`id_formateur`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `personne2`
@@ -382,7 +383,7 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`ligne_bulletin` (
     REFERENCES `db524752934`.`bilan` (`id_bilan`)
     ON DELETE CASCADE
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- -----------------------------------------------------
@@ -408,10 +409,10 @@ CREATE TABLE IF NOT EXISTS `db524752934`.`intervenant` (
     ON UPDATE NO ACTION,
   CONSTRAINT `formateur2`
     FOREIGN KEY (`id_formateur`)
-    REFERENCES `db524752934`.`formateur` (`id_personne`)
+    REFERENCES `db524752934`.`formateur` (`id_formateur`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB$$
+ENGINE = InnoDB $$
 
 
 -- Remettre les contraintes d'intégrité
@@ -421,7 +422,7 @@ SET FOREIGN_KEY_CHECKS=1 $$
 DROP VIEW IF EXISTS stagiaire $$
 CREATE VIEW stagiaire AS
     SELECT
-        p.id_personne AS id_personne,
+        p.id_personne AS id_stagiaire,
         civilite,
         prenom,
         nom,
@@ -437,12 +438,10 @@ CREATE VIEW stagiaire AS
         id_session,
         date_effet AS date_candidature,
         motivation
-    FROM
-        candidature c
-            INNER JOIN
-        personne p ON p.id_personne = c.id_personne
-    WHERE
-        id_etat_candidature = 5 $$
+    FROM candidature c
+		INNER JOIN personne p 
+			ON p.id_personne = c.id_personne
+    WHERE id_etat_candidature = 5 $$
 
 DROP VIEW IF EXISTS bulletin_note $$
 
@@ -450,7 +449,7 @@ CREATE VIEW bulletin_note AS
 
 	SELECT formation.nom AS diplome,
 			YEAR(session.date_fin) AS annee,
-			stagiaire.id_personne,
+			stagiaire.id_stagiaire,
 			stagiaire.prenom AS prenom_stagiaire, 
 			stagiaire.nom AS nom_stagiaire, 
 			stagiaire.date_naissance,
@@ -469,7 +468,7 @@ CREATE VIEW bulletin_note AS
 		INNER JOIN module
 			ON ligne_bulletin.id_module = module.id_module
 		INNER JOIN stagiaire
-			ON ligne_bulletin.id_stagiaire = stagiaire.id_personne
+			ON ligne_bulletin.id_stagiaire = stagiaire.id_stagiaire
 		INNER JOIN formateur
 			ON ligne_bulletin.id_formateur = formateur.id_formateur
 		INNER JOIN bilan
@@ -478,7 +477,7 @@ CREATE VIEW bulletin_note AS
 			ON formateur.id_formateur = personne.id_personne
 		INNER JOIN bulletin
 			ON bilan.id_bilan = bulletin.id_bilan
-			AND stagiaire.id_personne = bulletin.id_stagiaire
+			AND stagiaire.id_stagiaire = bulletin.id_stagiaire
 		INNER JOIN module_formation
 			ON module.id_module = module_formation.id_module
 		INNER JOIN formation
@@ -489,14 +488,14 @@ CREATE VIEW bulletin_note AS
 			AND stagiaire.id_session = evaluation.id_session
 		INNER JOIN note
 			ON evaluation.id_evaluation = note.id_evaluation
-			AND stagiaire.id_personne = note.id_personne
+			AND stagiaire.id_stagiaire = note.id_stagiaire
 		INNER JOIN session
 			ON stagiaire.id_session = session.id_session
 		WHERE evaluation.date_effet <= bilan.date_effet
 			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01') 
 	GROUP BY formation.nom,
 			YEAR(session.date_fin),
-			stagiaire.id_personne,
+			stagiaire.id_stagiaire,
 			stagiaire.prenom, 
 			stagiaire.nom, 
 			stagiaire.date_naissance,
@@ -578,7 +577,7 @@ BEGIN
   (28, 'M.', 'Jean-françois', 'POIVEY', null, '91300', 'Massy', null, null, '7@bidon.com', 'SLAM', '0000-00-00 00:00:00', 0);
 
   INSERT INTO formateur
-  (id_personne) VALUES
+  (id_formateur) VALUES
   (4),
   (5),
   (6),
@@ -609,7 +608,8 @@ BEGIN
   (2, 'BTS CG', 'BTS Comptabilité et Gestion'),
   (3, 'BTS Audiovisuel', 'BTS Audiovisuel option Son, Image ou Montage');
 
-  INSERT INTO module_formation(id_module, id_formation) VALUES
+  INSERT INTO module_formation
+  (id_module, id_formation) VALUES
   (1, 1),
   (2, 1),
   (3, 1),
@@ -773,17 +773,24 @@ BEGIN
     DECLARE v_id_module INT;
     DECLARE v_id_formateur INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur FROM bulletin INNER JOIN bilan ON bulletin.id_bilan = bilan.id_bilan 
-		INNER JOIN session ON bilan.id_session = session.id_session INNER JOIN intervenant ON session.id_session = intervenant.id_session 
-		where bulletin.id_bilan = NEW.id_bilan AND bulletin.id_stagiaire = NEW.id_stagiaire;
+    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur 
+                                FROM bulletin 
+                                INNER JOIN bilan 
+                                    ON bulletin.id_bilan = bilan.id_bilan 
+                                INNER JOIN session 
+                                    ON bilan.id_session = session.id_session 
+                                INNER JOIN intervenant 
+                                    ON session.id_session = intervenant.id_session 
+                                WHERE bulletin.id_bilan = NEW.id_bilan 
+                                AND bulletin.id_stagiaire = NEW.id_stagiaire;
     OPEN v_lignes;
     BEGIN
-		DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
+	DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
         REPEAT
-			FETCH v_lignes INTO v_id_module, v_id_formateur;
-			INSERT INTO ligne_bulletin (id_module, id_formateur, id_stagiaire, id_bilan) VALUES (v_id_module, v_id_formateur, NEW.id_stagiaire, NEW.id_bilan);
-		UNTIL v_termine END REPEAT;
-	END;
+            FETCH v_lignes INTO v_id_module, v_id_formateur;
+            INSERT INTO ligne_bulletin (id_module, id_formateur, id_stagiaire, id_bilan) VALUES (v_id_module, v_id_formateur, NEW.id_stagiaire, NEW.id_bilan);
+            UNTIL v_termine END REPEAT;
+    END;
     CLOSE v_lignes;
 END$$
 
@@ -793,17 +800,19 @@ CREATE TRIGGER bilan_after_insert_trigger
 AFTER INSERT ON bilan
 FOR EACH ROW
 BEGIN
-	DECLARE v_id_personne INT;
+    DECLARE v_id_stagiaire INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT id_personne FROM stagiaire WHERE id_session = NEW.id_session;
+    DECLARE v_lignes CURSOR FOR SELECT id_stagiaire 
+                                FROM stagiaire 
+                                WHERE id_session = NEW.id_session;
     OPEN v_lignes;
     BEGIN
-		DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
+	DECLARE EXIT HANDLER FOR NOT FOUND SET v_termine = TRUE;
         REPEAT
-			FETCH v_lignes INTO v_id_personne;
-			INSERT INTO bulletin (id_stagiaire, id_bilan) VALUES (v_id_personne, NEW.id_bilan);
-		UNTIL v_termine END REPEAT;
-	END;
+            FETCH v_lignes INTO v_id_stagiaire;
+            INSERT INTO bulletin (id_stagiaire, id_bilan) VALUES (v_id_stagiaire, NEW.id_bilan);
+            UNTIL v_termine END REPEAT;
+    END;
     CLOSE v_lignes;
 END$$
 

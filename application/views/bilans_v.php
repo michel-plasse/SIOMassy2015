@@ -28,7 +28,7 @@ $dateError = form_error("date");
             <?php
             $this->load->view('header_v');
             ?>
-            <section>
+            <section id="section_bilans">
                 <header id = "liste_bilans" method = "POST">
                     <h1>Listes des conseils de classe</h1>
                 </header>
@@ -72,6 +72,9 @@ $dateError = form_error("date");
                 }
                 ?>
             </section>
+            <footer>
+                <p>Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+            </footer>
         </main>
     </body>
 </html>

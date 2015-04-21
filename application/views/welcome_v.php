@@ -12,17 +12,19 @@
             <?php
             $this->load->view('header_v');
             ?>
-            <nav>
+            <nav id="nav_welcome">
                 <ul>
                     <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
                     <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
                     <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
                 </ul>
             </nav>
-            <section id="corps">
+            <section id="section_welcome">
                 <h1>Proposition de maquette</h1>
             </section>
-            <footer class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds</footer>
+            <footer>
+                <p>Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+            </footer>
         </main>
     </body>
 </html>

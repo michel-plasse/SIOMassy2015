@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
     $this->load->helper('form');
     try {
       $data["sessions"] = $this->menus_m->getSessionsEnCours();
-      $this->load->view('welcome_message', $data);
+      $this->load->view('welcome_v', $data);
     } catch (Exception $exc) {
       $data["exception"] = $exc;
       $this->load->view('erreur');

@@ -96,7 +96,7 @@
   </head>
   <body>
     <?php
-    $this->load->view('header');
+    $this->load->view('header_v');
     ?>
     <!--
     <div id="menuGauche">

@@ -12,10 +12,10 @@ $dateError = form_error("date");
 ?> 
 ﻿<html>
     <head>
-        <link rel="stylesheet" type="text/css" href="items/css/allproject.css"/>
-        <link rel="stylesheet" type="text/css" href="items/css/BeatPicker.min.css"/>
-        <script type="text/javascript" src = "items/js/jquery.1.8.3.js"></script>
-        <script type="text/javascript" src="items/js/BeatPicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
+        <link rel="stylesheet" type="text/css" href="<?= $cssBPUrl ?>"/>
+        <script type="text/javascript" src = "<?= $biblioJSUrl ?>"></script>
+        <script type="text/javascript" src="<?= $jsBPUrl ?>"></script>
         <title>Liste des conseils de classe</title>
     </head>
     <body>

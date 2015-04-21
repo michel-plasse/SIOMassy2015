@@ -1,6 +1,6 @@
 ﻿<html>
     <head>
-        <link rel="stylesheet" type="text/css" href="items/css/allproject.css"/>
+        <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
         <title>Liste des stagaires</title>
     </head>
     <body>

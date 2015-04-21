@@ -6,12 +6,17 @@ class Bilans extends CI_Controller {
         parent::__construct();
         $this->load->model('menus_m');
         $this->load->model('bilan_m');
+        $this->load->helper('url');
     }
 
     public function index() {
         if ($this->input->server('REQUEST_METHOD') == "GET") {
             $this->load->helper(array('form', 'url'));
             $data["bilans"] = $this->bilan_m->getAll();
+            $data["cssUrl"] = base_url("items/css/allproject.css");
+            $data["cssBPUrl"] = base_url("items/css/BeatPicker.min.css");
+            $data["jsBPUrl"] = base_url("items/js/BeatPicker.min.js");
+            $data["biblioJSUrl"] = base_url("items/js/jquery.1.8.3.js");
             $this->load->view('bilans_v', $data);
         } else {
             // valider les données
@@ -28,6 +33,10 @@ class Bilans extends CI_Controller {
                 // Il y a des erreurs => réafficher le formulaire
                 $this->load->helper(array('form', 'url'));
                 $data["bilans"] = $this->bilan_m->getAll();
+                $data["cssUrl"] = base_url("items/css/allproject.css");
+                $data["cssBPUrl"] = base_url("items/css/BeatPicker.min.css");
+                $data["jsBPUrl"] = base_url("items/js/BeatPicker.min.js");
+                $data["biblioJSUrl"] = base_url("items/js/jquery.1.8.3.js");
                 $this->load->view('bilans_v', $data);
             } else {
                 //Pas d'erreurs => suite du traitement

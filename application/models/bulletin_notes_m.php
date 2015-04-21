@@ -50,13 +50,15 @@ class Bulletin_notes_m extends CI_Model {
     }
 
     public function getAll() {
-        $sql = "SELECT s.id_session, s.nom AS nom_session, st.prenom AS prenom, st.nom AS nom, st.id_stagiaire, b.id_bilan, b.date_effet
+        $sql = "SELECT s.id_session, s.nom AS nom_session, 
+                st.prenom AS prenom, st.nom AS nom, st.id_stagiaire, 
+                b.id_bilan, b.date_effet
                 FROM session s
                     INNER JOIN stagiaire st
                         ON s.id_session = st.id_session
                     INNER JOIN bilan b
                             ON s.id_session = b.id_session
-                ORDER BY s.nom ASC, b.date_effet, st.nom ASC";
+                ORDER BY s.nom ASC, b.date_effet ASC, st.nom ASC";
         $query = $this->db->query($sql);
         return $query->result_array();
     }

@@ -9,24 +9,16 @@
         <?php
         $this->load->view('header_v');
         ?>
-        <!--
-        <div id="menuGauche">
-          </select>
-        </div>
-        -->
 
         <nav>
             <ul>
                 <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
                 <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
                 <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
+                <li><a id="lienGestionInterv" href="session">Gestion Intervenants</a></li>
             </ul>
         </nav>
-        <!--      <div id="menuHaut">
-                <a id="lienBilans" href="bilans">Conseils de classe</a>
-                -
-                <a id="lienEvaluations" href="evaluations">Evaluations</a>
-               </div>-->
+        
         <div id="corps">
             <h1>Proposition de maquette</h1>
         </div>

@@ -42,13 +42,9 @@
             {
                 border-collapse: collapse;
             }
-
             thead
             {
                 text-align: center;
-
-                background-color: #6d7feb;
-
             }
             td, th, caption
             {
@@ -57,7 +53,6 @@
             button
             {
                 float: right;
-                font: bold;
             }
 
 
@@ -85,40 +80,41 @@
                             <td>Français</td>
                             <td>
                                 <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
+
                                 <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
+                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>
                             </td>
                         </tr>
                         <tr>
                             <td>Maths</td>
                             <td>
                                 <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                                 <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
+                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                             </td>
                         </tr>
                         <tr>
                             <td>Economie-Droit</td>
                             <td>
                                 <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                                 <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
+                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                             </td>
                         </tr>
                         <tr>
                             <td>Anglais</td>
                             <td>
                                 <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                                 <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
+                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                             </td>
                         </tr>
                         <tr>
                             <td>SLAM</td>
                             <td>
                                 <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                                 <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
+                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
                             </td>
                         </tr>
 

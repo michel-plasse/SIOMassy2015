@@ -16,6 +16,7 @@
                 <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
                 <li><a id="lienBulletins" href="bulletins_notes">Bulletins de notes</a></li>
                 <li><a id="lienGestionInterv" href="session">Gestion Intervenants</a></li>
+                <li><a id="lienCreerEval" href="creer_eval">Création d'une évaluation</a></li>
             </ul>
         </nav>
         

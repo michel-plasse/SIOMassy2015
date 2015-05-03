@@ -14,81 +14,87 @@ body{
     background-color : #CBCBCB;
     width: 100%;
     height : 100%;
-    border : 1px solid black;
 }
 
 main{
-    width : 100%;
-    margin : 0 auto;
+    width : 99%;
+    margin : 0.5%;
 }
 
-section {
+header{
     float : left;
     width : 100%;
 }
 
-/************************* FORMULAIRES AJOUT BILAN *************************/
-
-/*#creation_bilan {
+header #FormDeconnexion {
     float : left;
-    width : 100%;
-    height: 25%;
-    position: relative;
+    margin : 10px 0px 0px 250px;
 }
 
-#creation_bilan h1 {
-    font-size : 2.5vw;
-    position : absolute;
-    top : 30%;
-    left : 30.5%;
+header #FormDeconnexion button {
+    width : 850px;
+    font-size : 20px;
 }
 
-#liste_session {
+header #FormConnexion {
     float : left;
-    width : 100%;
-    height : 75%;
-    position : relative;
+    margin : 10px 0px 0px 250px;
 }
 
-#liste_session #session {
-    position : absolute;
-    top : 15%;
-    left : 32.5%;
-    font-size: 1.6vw;
+header #FormConnexion input {
+    width : 300px;
+    font-size : 20px;
+    text-indent: 10px;
 }
 
-#liste_session select {
-    position : absolute;
-    top : 15%;
-    left : 53%;
-    width : 15%;
-    font-size: 1.6vw;
+header #FormConnexion button {
+    width : 250px;
+    font-size : 20px;
 }
 
-#liste_session #date {
-    position: absolute;
-    top : 40%;
-    left : 32.5%;
-    font-size: 1.6vw;
+header img {
+    float : left;
 }
 
-#liste_session input[type = 'text'] {
-    position : absolute;
-    top : 40%;
-    left : 53%;
-    font-size: 1.6vw;
-    width : 15%;
-    text-indent: 5%;
+footer {
+    float : left;
+    width: 100%;
 }
 
-#liste_session button {
-    position : absolute;
-    top : 70%;
-    left: 42.5%;
-    font-size: 1.6vw;
-    width: 15%;
-    border: solid #fff;
-}*/
+footer p {
+    text-align: center;
+}
+
+/************************* PAGE WELCOME ********************************/
+
+#nav_welcome {
+    float: left;
+    width: 100%;
+    margin: 1% 0%;
+}
+
+#nav_welcome ul li {
+    display: inline;
+    font-size : 30px;
+    margin: 0% 1%;
+}
+
+#section_welcome {
+    float: left;
+    width: 100%;
+    margin: 1% 0%;
+}
+
+#section_welcome h1{
+    font-size: 30px;
+}
+
+/************************* PAGE BILANS *********************************/
+
+#section_bilans {
+    float: left;
+    width: 100%
+}
 
 /************************* PAGE BULLETIN_NOTES *************************/
 

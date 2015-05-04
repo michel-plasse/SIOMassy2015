@@ -20,7 +20,5 @@ class Intervenant_m extends CI_Model {
                 from intervenant inner join module
                 on intervenant.id_module = module.id_module
                 group by module.id_module;";
-
-        return array(array(id_formateur, prenom, nom));
     }
 }

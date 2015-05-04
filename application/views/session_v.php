@@ -1,32 +1,17 @@
-<html>
+<!DOCTYPE html>
+<?php
+session_start();
+foreach ($modules as $infos_modules) {
+    $id_module = $infos_modules["id_modules"];
+    $nom = $infos_modules["nom"];
+}
+?>
     <head> 
         <meta charset="utf-8">
         <title>Gestion des Intervenants</title>
         <link rel = "stylesheet" type = "text/css" href = "items/css/BeatPicker.min.css"/>
-        <script type="text/javascript">
-            function ajouterLigne()
-            {
-                var tableau = document.getElementById("tableau");
-
-                var ligne = tableau.insertRow(-1);//on a ajouté une ligne
-
-                var colonne1 = ligne.insertCell(0);//on a une ajouté une cellule
-                colonne1.innerHTML += document.getElementById("titre").value;//on y met le contenu de titre
-
-                var colonne2 = ligne.insertCell(1);//on ajoute la seconde cellule
-                colonne2.innerHTML += document.getElementById("auteur").value;
-
-            }
-        </script>
-        <script type="text/javascript">
-            function supprimerLigne(num)
-            {
-                document.getElementById("tableau").deleteRow(num);
-            }
-        </script>
 
         <style>
-
             body
             {
                 font-family: tahoma;	
@@ -54,8 +39,6 @@
             {
                 float: right;
             }
-
-
         </style>
 
     </head>
@@ -68,6 +51,7 @@
                 <header id = "intervenants">
                     <a href = "index.php"><img alt="logo" src=""/></a>
                 </header>
+                <form method = "POST" id="formulaire_intervenants">
                 <table id="Intervenants">
                     <caption>Gestion des Intervenants</caption>
                     <thead>
@@ -77,50 +61,60 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Français</td>
+                            <td> => <?php echo $nom_module ?></td>
                             <td>
-                                <input type="text" name="listeDeroul"/>
+                                <?= form_dropdown('idFormateur', $formateurs); ?>
+                                <button type="submit" name="supprimer">X</button>	
+                                <button type="submit" name="ajouter">+</button>
 
-                                <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>
+
+                                <?php
+                                if (isset($_POST['ajouter'])) {
+                                   
+                                    echo $formateurs;
+                                }
+                                ?>
+
+
                             </td>
                         </tr>
                         <tr>
-                            <td>Maths</td>
+                              <td> => <?php echo $nom_module ?></td>                            
                             <td>
-                                <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
+                                <?= form_dropdown('idFormateur', $formateurs); ?>
+                                <button type="submit" name="supprimer">X</button>	
+                                <button type="submit" name="ajouter">+</button>	
                             </td>
                         </tr>
                         <tr>
-                            <td>Economie-Droit</td>
+                            <td> => <?php echo $nom_module ?></td>
                             <td>
-                                <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
+                                <?= form_dropdown('idFormateur', $formateurs); ?>
+                                <button type="submit" name="supprimer">X</button>	
+                                <button type="submit" name="ajouter">+</button>	
                             </td>
                         </tr>
                         <tr>
-                            <td>Anglais</td>
+                            <td> => <?php echo $nom_module ?></td>
                             <td>
-                                <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
+                                <?= form_dropdown('idFormateur', $formateurs); ?>
+                                <button type="submit" name="supprimer">X</button>	
+                                <button type="submit" name="ajouter">+</button>	
                             </td>
                         </tr>
                         <tr>
-                            <td>SLAM</td>
+                           <td> => <?php echo $nom_module ?></td>
                             <td>
-                                <input type="text" name="listeDeroul"/>
-                                <button type="submit" name="supprimer" onclick="supprimerLigne(this.parentNode.rowIndex);">X</button>	
-                                <button type="submit" name="ajouter" onclick="ajouterLigne();">+</button>	
+                                <?= form_dropdown('idFormateur', $formateurs); ?>
+                                <button type="submit" name="supprimer">X</button>	
+                                <button type="submit" name="ajouter">+</button>	
                             </td>
                         </tr>
 
                     </tbody>	
 
                 </table>
+                </form>
 
             </section>
         </main>

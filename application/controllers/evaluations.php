@@ -46,8 +46,11 @@ class Evaluations extends CI_Controller {
     function  mobile($idStagiaire){
         header("Content-type: text/plain; charset=UTF-8");
         $notes = $this->evaluation_m->getNotesByStagiaire($idStagiaire);
+        $result = array();
         foreach ($notes as $note) {
-            print implode(";", $note)."\n";
+            $result[] = implode(";", $note);
         }
+        print join("\n", $result);
     }
+    
 }

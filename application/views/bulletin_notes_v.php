@@ -31,6 +31,9 @@ foreach ($moyennes as $moyenne) {
             <?php
             $this->load->view('header_v');
             ?>
+            <?php
+            $this->load->view('navigation_v');
+            ?>
             <section>
                 <header id = "bulletin">
                     <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>

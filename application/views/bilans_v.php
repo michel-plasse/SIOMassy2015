@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 <?php
 session_start();
 //$errors = validation_errors();
@@ -14,6 +12,7 @@ $date = set_value("date");
 $dateError = form_error("date");
 ?>
 
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">

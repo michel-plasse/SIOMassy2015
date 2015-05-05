@@ -1,6 +1,8 @@
 <html>
     <head>
         <title>Bilan d'un conseil de classe</title>
+        <link rel="stylesheet" type="text/css"
+              href="/gestionmassy/items/css/allproject.css"/>
     </head>
     <body>
         <section>

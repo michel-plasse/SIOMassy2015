@@ -5,7 +5,6 @@ class Bulletin_notes extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('bulletin_notes_m');
-        $this->load->helper('url');
     }
 
     public function index($id_session, $id_bilan, $id_stagiaire) {

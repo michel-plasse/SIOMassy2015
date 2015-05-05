@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS etat_candidature $$
 DROP TABLE IF EXISTS evaluation $$
 DROP TABLE IF EXISTS formateur $$
 DROP TABLE IF EXISTS formation $$
+DROP TABLE IF EXISTS intervenant $$
 DROP TABLE IF EXISTS ligne_bulletin $$
 DROP TABLE IF EXISTS module $$
 DROP TABLE IF EXISTS module_formation $$
@@ -439,7 +440,7 @@ CREATE VIEW stagiaire AS
         date_effet AS date_candidature,
         motivation
     FROM candidature c
-		INNER JOIN personne p 
+		INNER JOIN personne p
 			ON p.id_personne = c.id_personne
     WHERE id_etat_candidature = 5 $$
 
@@ -450,8 +451,8 @@ CREATE VIEW bulletin_note AS
 	SELECT formation.nom AS diplome,
 			YEAR(session.date_fin) AS annee,
 			stagiaire.id_stagiaire,
-			stagiaire.prenom AS prenom_stagiaire, 
-			stagiaire.nom AS nom_stagiaire, 
+			stagiaire.prenom AS prenom_stagiaire,
+			stagiaire.nom AS nom_stagiaire,
 			stagiaire.date_naissance,
 			stagiaire.id_session,
 			module.id_module,
@@ -492,12 +493,12 @@ CREATE VIEW bulletin_note AS
 		INNER JOIN session
 			ON stagiaire.id_session = session.id_session
 		WHERE evaluation.date_effet <= bilan.date_effet
-			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01') 
+			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01')
 	GROUP BY formation.nom,
 			YEAR(session.date_fin),
 			stagiaire.id_stagiaire,
-			stagiaire.prenom, 
-			stagiaire.nom, 
+			stagiaire.prenom,
+			stagiaire.nom,
 			stagiaire.date_naissance,
 			stagiaire.id_session,
 			module.id_module,
@@ -676,7 +677,7 @@ END$$
 
 /* Insère une note ou la met à jour */
 DROP PROCEDURE IF EXISTS insert_update_note$$
-CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_note DECIMAL(3,1)) 
+CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_note DECIMAL(3,1))
  BEGIN
 	DECLARE v_note DECIMAL(3,1);
     SELECT note INTO v_note
@@ -685,7 +686,7 @@ CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_n
     IF v_note IS NULL THEN
 		-- inserer
         INSERT INTO note (id_evaluation, id_stagiaire, note)
-        VALUES (p_id_evaluation, p_id_stagiaire, p_note);	
+        VALUES (p_id_evaluation, p_id_stagiaire, p_note);
 	ELSE
 		-- mettre a jour
         UPDATE note
@@ -801,15 +802,15 @@ BEGIN
     DECLARE v_id_module INT;
     DECLARE v_id_formateur INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur 
-                                FROM bulletin 
-                                INNER JOIN bilan 
-                                    ON bulletin.id_bilan = bilan.id_bilan 
-                                INNER JOIN session 
-                                    ON bilan.id_session = session.id_session 
-                                INNER JOIN intervenant 
-                                    ON session.id_session = intervenant.id_session 
-                                WHERE bulletin.id_bilan = NEW.id_bilan 
+    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur
+                                FROM bulletin
+                                INNER JOIN bilan
+                                    ON bulletin.id_bilan = bilan.id_bilan
+                                INNER JOIN session
+                                    ON bilan.id_session = session.id_session
+                                INNER JOIN intervenant
+                                    ON session.id_session = intervenant.id_session
+                                WHERE bulletin.id_bilan = NEW.id_bilan
                                 AND bulletin.id_stagiaire = NEW.id_stagiaire;
     OPEN v_lignes;
     BEGIN
@@ -830,8 +831,8 @@ FOR EACH ROW
 BEGIN
     DECLARE v_id_stagiaire INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT id_stagiaire 
-                                FROM stagiaire 
+    DECLARE v_lignes CURSOR FOR SELECT id_stagiaire
+                                FROM stagiaire
                                 WHERE id_session = NEW.id_session;
     OPEN v_lignes;
     BEGIN

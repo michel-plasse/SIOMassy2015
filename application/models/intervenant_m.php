@@ -8,17 +8,11 @@ class Intervenant_m extends CI_Model {
     }
     
     public function supprimer($id_session, $id_module, $id_formateur) {
-        $sql = "";
+        $sql = "DELETE";
     }
 
     public function ajouter($id_session, $id_module, $id_formateur) {
-        $sql = "";
+        $sql = "INSERT INTO intervenant";
     }
 
-    public function getBySessionModule($id_session, $id_module) {
-        $sql = "select module.id_module, module.nom
-                from intervenant inner join module
-                on intervenant.id_module = module.id_module
-                group by module.id_module;";
-    }
 }

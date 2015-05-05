@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modele fournissant les données pour des listes déroulantes
  */
@@ -80,5 +81,12 @@ class Menus_m extends CI_Model {
                 group by nom;";
         return $this->getMap($sql);
     }
+
+//    public function getBilansBySession($idSession) {
+//        $sql = "SELECT id_bilan AS value, date_effet AS text
+//                FROM bilan
+//                WHERE id_session = $idSession";
+//        return $this->getMap($sql);
+//    }
 
 }

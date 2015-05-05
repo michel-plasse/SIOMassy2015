@@ -38,4 +38,24 @@ class Connexion extends CI_Controller {
         $this->load->view("welcome_v", $data);
     }
 
+    /** Fournit le id du stagiaire, selon son login/pwd pour se connecter en mobile */
+    function getIdStagiaire() {
+        header("Content-type: text/plain; charset=UTF-8");
+        $email = $this->input->post('email');
+        $pwd = $this->input->post('pwd');
+        $user = $this->user_m->getByEmailPassword($email, $pwd);
+        $result = ($user != null) ? $user["id_personne"] : "";
+        print $result;
+    }
+
+    /** Rend le nom du stagiaire */
+    function getNomStagiaire() {
+        header("Content-type: text/plain; charset=UTF-8");
+        $email = $this->input->post('email');
+        $pwd = $this->input->post('pwd');
+        $user = $this->user_m->getByEmailPassword($email, $pwd);
+        $result = ($user != null) ? $user["nom"] : "";
+        print $result;
+    }
+
 }

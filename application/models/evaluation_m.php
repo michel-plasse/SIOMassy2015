@@ -69,7 +69,7 @@ class Evaluation_m extends CI_Model {
         return $query;
     }
     public function getNotesByStagiaire($idStagiaire){
-        $sql = "SELECT id_stagiaire, m.nom AS nom_module, e.date_effet, n.note
+        $sql = "SELECT id_stagiaire, m.nom AS nom_module, e.date_effet, n.note, e.id_evaluation
             FROM evaluation e 
             INNER JOIN module m ON e.id_module = m.id_module
                 INNER JOIN personne p
@@ -80,4 +80,5 @@ class Evaluation_m extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
+    
 }

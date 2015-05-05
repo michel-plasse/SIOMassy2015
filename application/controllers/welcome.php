@@ -22,8 +22,6 @@ class Welcome extends CI_Controller {
    */
   public function index() {
     $this->load->model('menus_m');
-    $this->load->helper('form');
-    $this->load->helper('url');
     try {
       $data["sessions"] = $this->menus_m->getSessionsEnCours();
       $data["cssUrl"] = base_url("items/css/allproject.css");

@@ -1,18 +1,19 @@
-<!DOCTYPE html>
-<?php session_start();
+<?php 
+if (session_status() != PHP_SESSION_ACTIVE) {
+    session_start();
+}
 ?>
+<!DOCTYPE html>
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
-        <title>Welcome to CodeIgniter</title>
+        <link rel="stylesheet" type="text/css" href="/gestionmassy/items/css/allproject.css"/>
+        <title>Gestion du Greta de Massy</title>
     </head>
     <body>
         <main>
             <?php
             $this->load->view('header_v');
-            ?>
-            <?php
             $this->load->view('navigation_v');
             ?>
             <section id="section_welcome">

@@ -27,8 +27,6 @@ $dateError = form_error("date");
         <main>
             <?php
             $this->load->view('header_v');
-            ?>
-            <?php
             $this->load->view('navigation_v');
             ?>
             <section id="section_bilans">

@@ -3,16 +3,21 @@ $url = base_url("/evaluations/note");
 ?>
 <html>
     <head>
-        <title></title>
+        <link rel="stylesheet" type="text/css" href="/gestionmassy/items/css/allproject.css"/>
+        <title>Saisie des notes</title>
     </head>
     <body>
+        <?php
+        $this->load->view('header_v');
+        $this->load->view('navigation_v');
+        ?>
         <h1>Evaluation <?= $evaluation["nom_module"] ?>
             du <?= $evaluation["date_effet"] ?>,
             par <?= $evaluation["prenom_formateur"] ?>
             <?= $evaluation["nom_formateur"] ?>
         </h1>
         <form method="post" action="<?= $url ?>">
-            <input type="hidden" name="id_evaluation" value="<?= $evaluation['id_evaluation']?>"/>
+            <input type="hidden" name="id_evaluation" value="<?= $evaluation['id_evaluation'] ?>"/>
             <table border = "1" cellspacing="0">
                 <tr>
                     <th>Stagiaire</th>
@@ -47,7 +52,7 @@ $url = base_url("/evaluations/note");
                             <td><a href="<?= $url ?>"></a><?= $nom ?></td>
                             <td>
                                 <input type='number' min='0' max='20' step='0.1' name='note[]' value="<?= $ligne['note'] ?>"/>
-                                <input type="hidden" name="id_stagiaire[]" value="<?=$ligne['id_stagiaire'] ?>"/>
+                                <input type="hidden" name="id_stagiaire[]" value="<?= $ligne['id_stagiaire'] ?>"/>
                             </td>
 
 

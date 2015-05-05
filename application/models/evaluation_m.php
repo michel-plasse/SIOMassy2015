@@ -63,12 +63,13 @@ class Evaluation_m extends CI_Model {
      * 
      */
     public function updateNote($id_stagiaire, $id_evaluation, $note) {
-        
+
         $sql = "CALL insert_update_note($id_evaluation, $id_stagiaire, $note)";
         $query = $this->db->query($sql);
         return $query;
     }
-    public function getNotesByStagiaire($idStagiaire){
+
+    public function getNotesByStagiaire($idStagiaire) {
         $sql = "SELECT id_stagiaire, m.nom AS nom_module, e.date_effet, n.note, e.id_evaluation
             FROM evaluation e 
             INNER JOIN module m ON e.id_module = m.id_module
@@ -80,5 +81,5 @@ class Evaluation_m extends CI_Model {
         $query = $this->db->query($sql);
         return $query->result_array();
     }
-    
+
 }

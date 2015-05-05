@@ -6,11 +6,9 @@
         <section>
             <?php
             $this->load->view('header_v');
-            ?>
-            <?php
             $this->load->view('navigation_v');
             ?>
-            <h1>Bilan du conseil de classe <?= $bilan?></h1>
+            <h1>Bilan du conseil de classe <?= $bilan ?></h1>
         </section>
     </body>
 </html>

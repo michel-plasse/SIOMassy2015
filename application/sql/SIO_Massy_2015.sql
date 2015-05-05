@@ -628,7 +628,9 @@ BEGIN
   INSERT INTO evaluation
   (id_evaluation, id_module, id_session, id_formateur, date_effet) VALUES
   (1, 1, 1, 5, '2014-11-01'),
-  (2, 13, 1, 4, '2015-03-24');
+  (2, 13, 1, 4, '2015-03-24'),
+  (3, 3, 1, 6, '2015-04-10'),
+  (4, 10, 1, 22, '2015-03-27');
 
   INSERT INTO etat_candidature
   (id_etat_candidature, libelle) VALUES

@@ -54,7 +54,10 @@ class Connexion extends CI_Controller {
         $email = $this->input->post('email');
         $pwd = $this->input->post('pwd');
         $user = $this->user_m->getByEmailPassword($email, $pwd);
-        $result = ($user != null) ? $user["nom"] : "";
+        $result = "";
+        if ($user != null) {
+            $result = "$user[civilite] $user[prenom] $user[nom]";
+        }
         print $result;
     }
 

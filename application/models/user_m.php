@@ -16,7 +16,7 @@ class User_m extends CI_Model {
     public function getByEmailPassword($email, $pwd) {
         $result = null;
         $sql = "SELECT 
-            p.id_personne, p.nom, p.prenom, p.email,
+            p.id_personne, p.civilite, p.nom, p.prenom, p.email,
             (f.id_formateur IS NOT NULL) AS is_formateur,
             (COUNT(s.id_stagiaire) <> 0) AS is_stagiaire
             FROM personne p

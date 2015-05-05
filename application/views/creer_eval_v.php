@@ -1,19 +1,19 @@
 <html>
     <head>
         <title>Création d'une évaluation</title>
-        <link rel = "stylesheet" type = "text/css" href = "items/css/BeatPicker.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/gestionmassy/items/css/allproject.css"/>
+    <link rel = "stylesheet" type = "text/css" href = "items/css/BeatPicker.min.css"/>
     <!--  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script> -->
         <script type="text/javascript" src = "items/js/jquery.1.8.3.js"></script>
         <script type = "text/javascript" src = "items/js/BeatPicker.min.js"></script>
     </head>
 
-    <style>
-        body { text-align: center; padding: 150px; }
-    </style>
+
     <body>
         <section>
             <?php
             $this->load->view('header_v');
+            $this->load->view('navigation_v');
             ?>
             <header id = "creation_evaluation" method = "POST">
                 <h1>Création d'une évaluation</h1>

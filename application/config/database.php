@@ -64,6 +64,8 @@ $db['default']['dbcollat'] = 'utf8_general_ci';
 $db['default']['swap_pre'] = '';
 $db['default']['autoinit'] = TRUE;
 $db['default']['stricton'] = FALSE;
+// Pour recuperer les erreurs de BD via try catch
+$db['default']['db_debug'] = FALSE;
 
 
 /* End of file database.php */

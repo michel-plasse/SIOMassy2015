@@ -31,11 +31,14 @@ foreach ($moyennes as $moyenne) {
             <?php
             $this->load->view('header_v');
             ?>
+            <?php
+            $this->load->view('navigation_v');
+            ?>
             <section>
                 <header id = "bulletin">
                     <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
-                    <p id = "date_conseil">Date du conseil de classe : <?php date_format(date_create($date_conseil), 'd-m-Y') ?></p>
+                    <p id = "date_conseil">Date du conseil de classe : <?php echo date_format(date_create($date_conseil), 'd-m-Y') ?></p>
                     <p id = "nom">Prénom Nom : <?php echo $prenom_stagiaire . " " . $nom_stagiaire ?></p>
                     <p id = "date">Date de naissance : <?php echo date_format(date_create($date_naissance), 'd-m-Y') ?> </p>
                 </header>

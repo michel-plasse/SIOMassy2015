@@ -2,6 +2,7 @@
 <head> 
     <meta charset="utf-8">
     <title>Gestion des Intervenants</title>
+    <link rel="stylesheet" type="text/css" href="/gestionmassy/items/css/allproject.css"/>
     <link rel = "stylesheet" type = "text/css" href = "items/css/BeatPicker.min.css"/>
     <style>
         body
@@ -35,6 +36,7 @@
 <body>
     <?php
     $this->load->view('header_v');
+    $this->load->view('navigation_v');
     ?>
     <main>
         <section>

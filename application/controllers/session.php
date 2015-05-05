@@ -37,7 +37,7 @@ class Session extends CI_Controller {
     }
 
     public function process_form($idSession) {
-        die("pas encore fait");
+        die("module=$_POST[id_module] action=$_POST[action] id_formateur=$_POST[id_formateur]");
     }
 
 }

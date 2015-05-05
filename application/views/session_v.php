@@ -35,42 +35,40 @@
 <body>
     <?php
     $this->load->view('header_v');
+    $this->load->view('navigation_v');
     ?>
     <main>
         <section>
             <header id = "intervenants">
-                <a href = "index.php"><img alt="logo" src=""/></a>
             </header>
-            <form method = "POST" id="formulaire_intervenants">
-                <table id="Intervenants">
-                    <caption>Gestion des Intervenants</caption>
-                    <thead>
-                    <th>Modules</th>
-                    <th>Intervenants</th>
-                    </thead>
-                    <tbody>
-                        <?php
-                        foreach ($modules as $id_module => $nom_module) {
-                            ?>
-                            <tr>
-                                <td>  <?= $nom_module ?></td>
-                                <td>
-                                    <?= form_dropdown('idFormateur', $formateurs); ?>
-                                    <button type="submit" name="supprimer">X</button>	
-                                    <button type="submit" name="ajouter">+</button>
-                                    <?php
-                                    if (isset($_POST['ajouter'])) {
-                                        echo $formateurs;
-                                    }
-                                    ?>
-                                </td>
-                            </tr>
-                            <?php
-                        }
+
+            <table id="Intervenants">
+                <caption>Gestion des Intervenants</caption>
+                <thead>
+                <th>Modules</th>
+                <th>Intervenants</th>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($modules as $id_module => $nom_module) {
                         ?>
-                    </tbody>	
-                </table>
-            </form>
+                        <tr>
+
+                            <td>  <?= $nom_module ?></td>
+                            <td>
+                                <form method = "POST" id="formulaire_intervenants">
+                                    <?= form_dropdown('id_formateur', $formateurs); ?>
+                                    <button type="submit" name="action" value="supprimer">X</button>	
+                                    <button type="submit" name="action" value="ajouter">+</button>
+                                    <input type="hidden" name="id_module" value="<?= $id_module ?>"/>
+                                </form>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                    ?>
+                </tbody>	
+            </table>
         </section>
     </main>
 </body>

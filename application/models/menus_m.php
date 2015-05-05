@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Modele fournissant les données pour des listes déroulantes
  */
@@ -77,7 +76,8 @@ class Menus_m extends CI_Model {
     public function getFormateurs() {
         $sql = "SELECT f.id_formateur AS value, concat(prenom, ' ', nom) AS text
                 FROM personne p INNER JOIN formateur f
-                ON p.id_personne = f.id_formateur";
+                ON p.id_personne = f.id_formateur
+                group by nom;";
         return $this->getMap($sql);
     }
 

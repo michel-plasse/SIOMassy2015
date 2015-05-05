@@ -23,7 +23,7 @@ class Creer_eval extends FormController {
         $data["formateurs"] = $this->Menus_m->getFormateurs();
         // Afficher la vue en s'aidant du helper form
         // (pour le form_dropdown)
-        $this->load->helper('form');
+//        $this->load->helper('form');
         $this->load->view('Creer_eval_v', $data);
     }
 

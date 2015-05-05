@@ -1,8 +1,11 @@
+<!DOCTYPE html>
 <?php
+session_start();
 foreach ($stagiaire as $infos_stagiaire) {
     $nom_stagiaire = $infos_stagiaire["nom_stagiaire"];
     $prenom_stagiaire = $infos_stagiaire["prenom_stagiaire"];
     $diplome = $infos_stagiaire["diplome"];
+    $date_conseil = $infos_stagiaire["date_bilan"];
     $date_naissance = $infos_stagiaire["date_naissance"];
     $annee_diplome = $infos_stagiaire["annee"];
     $avis_proviseur = $infos_stagiaire["avis_proviseur"];
@@ -24,16 +27,15 @@ foreach ($moyennes as $moyenne) {
         <title>Affichage d'un bulletin de notes</title>
     </head>
     <body>
-        <?php
-        $this->load->view('header_v');
-        ?>
         <main>
+            <?php
+            $this->load->view('header_v');
+            ?>
             <section>
                 <header id = "bulletin">
-                    <a href = "index.php"><img alt="logo" src=""/></a>
                     <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
-                    <p id = 'semestre'>Semestre : <input type = 'radio' name = 'semestre' value ="1"/>1er<input type = 'radio' name = 'semestre' value ="2"/>2nd</p>
+                    <p id = "date_conseil">Date du conseil de classe : <?php date_format(date_create($date_conseil), 'd-m-Y') ?></p>
                     <p id = "nom">Prénom Nom : <?php echo $prenom_stagiaire . " " . $nom_stagiaire ?></p>
                     <p id = "date">Date de naissance : <?php echo date_format(date_create($date_naissance), 'd-m-Y') ?> </p>
                 </header>
@@ -113,6 +115,9 @@ foreach ($moyennes as $moyenne) {
                     </tbody>
                 </table>
             </section>
+            <footer>
+                <p>Page rendered in <strong>{elapsed_time}</strong> seconds</p>
+            </footer>
         </main>
     </body>
 </html>

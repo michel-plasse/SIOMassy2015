@@ -35,7 +35,6 @@
 <body>
     <?php
     $this->load->view('header_v');
-    $this->load->view('navigation_v');
     ?>
     <main>
         <section>
@@ -53,7 +52,6 @@
                     foreach ($modules as $id_module => $nom_module) {
                         ?>
                         <tr>
-
                             <td>  <?= $nom_module ?></td>
                             <td>
                                 <form method = "POST" id="formulaire_intervenants">

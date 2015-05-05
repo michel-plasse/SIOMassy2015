@@ -11,9 +11,8 @@
         <main>
             <?php
             $this->load->view('header_v');
-            $this->load->view('navigation_v');
             ?>
-<!--            <nav id="nav_welcome">
+            <nav id="nav_welcome">
                 <ul>  
                     <li><a id="lienBilans" href="bilans">Conseils de classe</a></li>
                     <li><a id="lienEvaluations" href="evaluations">Evaluations</a></li>
@@ -21,7 +20,7 @@
                     <li><a id="lienIntervenants" href="session">Gestion Intervenants</a></li>
                     <li><a id="lienCreerEval" href="creer_eval">Création d'une évaluation</a></li>
                 </ul>
-            </nav>-->
+            </nav>
             <section id="section_welcome">
                 <h1>Proposition de maquette</h1>
             </section>

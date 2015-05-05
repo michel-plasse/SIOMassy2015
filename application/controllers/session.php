@@ -10,7 +10,7 @@ class Session extends CI_Controller {
 
     /** Affiche la liste des sessions. Pas fait => envoie vers la session 1 */
     public function index() {
-        $this->load->helper('url');
+//        $this->load->helper('url');
         redirect("/session/intervenants/1");
     }
     

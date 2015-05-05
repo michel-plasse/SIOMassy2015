@@ -35,6 +35,8 @@
 <body>
     <?php
     $this->load->view('header_v');
+    $this->load->view('navigation_v');
+    
     ?>
     <main>
         <section>

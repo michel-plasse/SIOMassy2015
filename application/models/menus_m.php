@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Modele fournissant les données pour des listes déroulantes
  */
@@ -73,12 +74,22 @@ class Menus_m extends CI_Model {
     }
 
     /** Formateurs */
-    public function getFormateurs() {
+    public function getFormateurs($where = 1) {
         $sql = "SELECT f.id_formateur AS value, concat(prenom, ' ', nom) AS text
                 FROM personne p INNER JOIN formateur f
                 ON p.id_personne = f.id_formateur
+                WHERE $where
                 group by nom;";
         return $this->getMap($sql);
+    }
+    
+    
+
+    public function InsertEval($id_session, $id_module, $id_formateur, $date_effet) {
+        $sql = "INSERT INTO evaluation (id_module, id_session, id_formateur, date_effet)
+                VALUES ($id_session, $id_module, $id_formateur, $date_effet)";
+        $query = $this->db->query($sql);
+        return $query;
     }
 
 }

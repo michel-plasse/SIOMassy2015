@@ -8,7 +8,6 @@
         <script type = "text/javascript" src = "items/js/BeatPicker.min.js"></script>
     </head>
 
-
     <body>
         <section>
             <?php

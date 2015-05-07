@@ -26,6 +26,7 @@
         td, th, caption
         {
             border: 1px solid black;
+            padding: 4px;
         }
         button
         {
@@ -42,8 +43,7 @@
         <section>
             <header id = "intervenants">
             </header>
-
-            <table id="Intervenants">
+            <table id="Intervenants" >
                 <caption>Gestion des Intervenants</caption>
                 <thead>
                 <th>Modules</th>
@@ -56,9 +56,24 @@
                         <tr>
                             <td>  <?= $nom_module ?></td>
                             <td>
-                                <form method = "POST" id="formulaire_intervenants">
+                                <?php
+                                $formateursDuModule = array();
+                                if (array_key_exists($id_module, $formateursParModule)) {
+                                    $formateursDuModule = $formateursParModule[$id_module];
+                                }
+                                foreach ($formateursDuModule as $id_formateur => $nom_formateur) {
+                                    ?>
+                                    <form method="POST">
+                                        <input type="hidden" name="id_module" value="<?= $id_module ?>"/>
+                                        <input type="hidden" name="id_formateur" value="<?= $id_formateur ?>"/>
+                                        <button type="submit" name="action" value="supprimer">X</button>
+                                        <?= $nom_formateur ?>
+                                    </form>
+                                    <?php
+                                }
+                                ?>
+                                <form method = "POST">
                                     <?= form_dropdown('id_formateur', $formateurs); ?>
-                                    <button type="submit" name="action" value="supprimer">X</button>	
                                     <button type="submit" name="action" value="ajouter">+</button>
                                     <input type="hidden" name="id_module" value="<?= $id_module ?>"/>
                                 </form>

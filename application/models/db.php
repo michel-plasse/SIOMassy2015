@@ -4,14 +4,18 @@
  */
 class DB {
 
+  public static $HOST;
   public static $DB_NAME = "db524752934";
   public static $USER = "dbo524752934";
   public static $PASSWORD = "Greta2014";
 
   /** Get a connection to the DB, in UTF-8 */
   public static function getConnection() {
+    DB::$HOST = ($_SERVER["HTTP_HOST"] == "localhost") ?
+            "localhost":
+            "db524752934.db.1and1.com";
     // DB configuration
-    $dsn = "mysql:dbname=".DB::$DB_NAME.";host=localhost";
+    $dsn = "mysql:dbname=".DB::$DB_NAME.";host=".DB::$HOST;
     // Get a DB connection with PDO library
     $bdd = new PDO($dsn, DB::$USER, DB::$PASSWORD);
     // Set communication in utf-8

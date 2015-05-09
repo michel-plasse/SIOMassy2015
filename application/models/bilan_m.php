@@ -1,6 +1,6 @@
 <?php
 
-require_once 'DB.php';
+require_once 'db.php';
 
 class Bilan_m extends CI_Model {
 

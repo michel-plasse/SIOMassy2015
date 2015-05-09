@@ -48,8 +48,8 @@
 $active_group = 'default';
 $active_record = TRUE;
 
-//$db['default']['hostname'] = 'db524752934.db.1and1.com';
-$db['default']['hostname'] = 'localhost';
+$db['default']['hostname'] = 'db524752934.db.1and1.com';
+//$db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'dbo524752934';
 $db['default']['password'] = 'Greta2014';
 $db['default']['database'] = 'db524752934';

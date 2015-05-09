@@ -34,12 +34,12 @@ foreach ($moyennes as $moyenne) {
             <?php
             $this->load->view('navigation_v');
             ?>
-            <section>
+            <section id="section_bulletin">
                 <header id = "bulletin">
                     <h1 id = "diplome">Diplome préparé <?php echo $diplome ?></h1>
                     <p id = "annee">Année : <?php echo $annee_diplome ?></p>
-                    <p id = "date_conseil">Date du conseil de classe : <?php echo date_format(date_create($date_conseil), 'd-m-Y') ?></p>
                     <p id = "nom">Prénom Nom : <?php echo $prenom_stagiaire . " " . $nom_stagiaire ?></p>
+                    <p id = "date_conseil">Date du conseil de classe : <?php echo date_format(date_create($date_conseil), 'd-m-Y') ?></p>
                     <p id = "date">Date de naissance : <?php echo date_format(date_create($date_naissance), 'd-m-Y') ?> </p>
                 </header>
                 <table id = "notes">
@@ -61,18 +61,18 @@ foreach ($moyennes as $moyenne) {
                         <?php
                         foreach ($stagiaire as $info) {
                             echo "<tr>";
-                            echo "<td>$info[matiere]</td>";
-                            echo "<td>$info[prenom_formateur] $info[nom_formateur]</td>";
-                            echo "<td>$info[moyenne]</td>";
-                            echo "<td>$info[min_classe]</td>";
-                            echo "<td>$info[moyenne_classe]</td>";
-                            echo "<td>$info[max_classe]</td>";
+                            echo "<td id='body_matiere'>$info[matiere]</td>";
+                            echo "<td id='body_formateur'>$info[prenom_formateur] $info[nom_formateur]</td>";
+                            echo "<td class='body_notes'>$info[moyenne]</td>";
+                            echo "<td class='body_notes'>$info[min_classe]</td>";
+                            echo "<td class='body_notes'>$info[moyenne_classe]</td>";
+                            echo "<td class='body_notes'>$info[max_classe]</td>";
                             echo "<td><form method='POST'>
                                         <input type='hidden' name='id_formateur' value=$info[id_formateur]/>
                                         <input type='hidden' name='id_bilan' value=$info[id_bilan]/>
                                         <input type='hidden' name='id_module' value=$info[id_module]/>
                                         <input type='hidden' name='id_stagiaire' value=$info[id_stagiaire]/>
-                                        <textarea name='commentaire' rows='1' cols='150'>$info[avis_prof]</textarea><button type='submit' name='ligne_b'>Valider</button></form></td>";
+                                        <textarea id='ta_com' name='commentaire' rows='2' cols='100'>$info[avis_prof]</textarea><button id='bouton_com' type='submit' name='ligne_b'>Valider</button></form></td>";
                         }
                         ?>
                     </tbody>
@@ -86,7 +86,7 @@ foreach ($moyennes as $moyenne) {
                         </tr>
                     </tfoot>
                 </table>
-                <table id = "appréciation">
+                <table id = "appreciation">
                     <thead>
                         <tr>
                             <th>Appréciation globale</th>
@@ -98,8 +98,8 @@ foreach ($moyennes as $moyenne) {
                         <input type="hidden" name="id_bilan" value="<?= $id_bilan ?>"/>
                         <tr>
                             <td>
-                                <input type="text" name="commentaire" value="<?= $avis_proviseur ?>">
-                                <button type="submit" name="bulletin">Valider</button>
+                                <textarea id="ta_app" name="commentaire" rows="10" cols="100"><?= $avis_proviseur ?></textarea> 
+                                <button id="bouton_app" type="submit" name="bulletin">Valider</button>
                             </td>
                         </tr>
                     </form>
@@ -113,7 +113,7 @@ foreach ($moyennes as $moyenne) {
                     </thead>
                     <tbody>
                         <tr>
-                            <td></td>
+                            <td id="bloc"></td>
                         </tr>
                     </tbody>
                 </table>

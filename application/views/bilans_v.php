@@ -29,11 +29,11 @@ $dateError = form_error("date");
             $this->load->view('navigation_v');
             ?>
             <section id="section_bilans">
-                <header id = "liste_bilans" method = "POST">
+                <header id = "liste_bilans">
                     <h1>Listes des conseils de classe</h1>
                 </header>
                 <?php
-                echo "<dl>";
+                echo "<dl id='bilans'>";
                 $id_session = 0;
                 ?>
                 <script type="text/javascript">
@@ -49,14 +49,15 @@ $dateError = form_error("date");
                         $dt = "<dt>$row[nom_session]</dt>\n";
                         $id_session = $row["id_session"];
                         ?>
-                        <form id="liste_session<?php echo $row['id_session'] ?>" method="POST" style="display: inline;">
+                        <form id="liste_session<?php echo $row['id_session'] ?>" method="POST">
                             <input type="hidden" name="id_session" value="<?= $id_session ?>"/>
-                            (<label id = "date"> Date :</label>
-                            <input type = "text" name = "date" placeholder = "Date du bilan" data-beatpicker = "true" data-beatpicker-position = "['10','50']"
+                            <label class="date"> (Date : </label>
+                            <input class="date_picker" type = "text" name = "date" placeholder = "Date du bilan" data-beatpicker = "true" data-beatpicker-position = "['10','50']"
                                    data-beatpicker-extra = "customOptions" data-beatpicker-format = "['YYYY','MM','DD'],separator:'-'"
                                    data-beatpicker-module = "icon"/>
                                    <?= $dateError ?>
-                            <button type="submit">Ajouter</button>)
+                            <button class="bouton_dp" type="submit">Ajouter</button>
+                            <label>)</label>
                         </form>
                         <?php
                     } else {
@@ -64,13 +65,11 @@ $dateError = form_error("date");
                     }
                     $id_bilan = $row["id_bilan"];
                     $date = date_format(date_create($row["date_effet"]), 'd-m-Y');
-                    $dd = "<dd><a href ='bilans/get/$id_bilan'>- $date</a></dd>";
+                    $dd = "<dd class = 'dd_bilan'><a href ='bilans/get/$id_bilan'>- $date</a></dd>";
 
                     echo "$dt $dd";
-                    ?>
-                    <?php
                 }
-                ?>
+                ?> 
             </section>
             <footer>
                 <p>Page rendered in <strong>{elapsed_time}</strong> seconds</p>

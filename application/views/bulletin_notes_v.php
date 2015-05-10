@@ -73,6 +73,7 @@ foreach ($moyennes as $moyenne) {
                                         <input type='hidden' name='id_module' value=$info[id_module]/>
                                         <input type='hidden' name='id_stagiaire' value=$info[id_stagiaire]/>
                                         <textarea id='ta_com' name='commentaire' rows='2' cols='100'>$info[avis_prof]</textarea><button id='bouton_com' type='submit' name='ligne_b'>Valider</button></form></td>";
+                            echo "</tr>";
                         }
                         ?>
                     </tbody>

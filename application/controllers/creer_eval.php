@@ -7,6 +7,7 @@ class Creer_eval extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model('menus_m');
+        $this->load->model('creer_eval_m');
     }
 
     public function index() {

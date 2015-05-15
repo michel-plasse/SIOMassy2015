@@ -27,8 +27,11 @@ class Creer_eval extends CI_Controller {
             $this->load->view('creer_eval_v', $data);
         } else {
             if (isset($_POST['insert_eval'])) {
-                Creer_eval_m::insert($_POST);
-                redirect(uri_string());
+                $data["insertion"] = $_POST[''];
+                        
+                $this->load->view('creer_eval_v',data);
+//                Creer_eval_m::insert($_POST);
+//                redirect(uri_string());
             }
         }
     }

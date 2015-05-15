@@ -13,7 +13,7 @@ class Creer_eval_m extends CI_Model {
     public function insert($data) {
         $db = DB::getConnection();
         $sql = "INSERT INTO evaluation (id_module, id_session, id_formateur, date_effet)
-                VALUES (:id_session, :id_module, :id_formateur, :date_effet)";
+                VALUES (:id_module,:id_session, :id_formateur, :date_effet)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(":id_session", $data["idSession"]);
         $stmt->bindParam(":id_module", $data["idModule"]);

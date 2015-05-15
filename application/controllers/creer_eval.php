@@ -26,7 +26,7 @@ class Creer_eval extends CI_Controller {
             // (pour le form_dropdown)
             $this->load->view('creer_eval_v', $data);
         } else {
-            if (isset($_POST['insert_eval'])) {
+            if (isset($_POST['insert_eval'])) { 
                 $this->load->view('creer_eval_v', $data);
                 Creer_eval_m::insert($_POST);
                 redirect(uri_string());

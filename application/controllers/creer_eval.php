@@ -28,7 +28,19 @@ class Creer_eval extends FormController {
     }
 
     public function process_form() {
-        die("pas encore fait");
+        $this->load->model('menus_m');
+        $id_session = $this->input->post("id_session");
+        $id_module = $this->input->post("id_module");
+        $id_formateur = $this->input->post("id_formateur");
+        try {
+            $this->menu_m->InsertEval($id_session, $id_module, $id_formateur);
+        } catch (Exception $exc) {
+            die($exc->getCode());
+        }
+        redirect(current_url());
+
+
+        //die("pas encore fait");
     }
 
 }

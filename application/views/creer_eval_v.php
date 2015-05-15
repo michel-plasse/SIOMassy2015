@@ -34,7 +34,7 @@
                     </tr>
                     <tr>
                         <th><label id = "date">Date : </label></th>
-                        <td><input type="text" name="dateevaluation" placeholder="Date de l'évaluation" data-beatpicker="true" data-beatpicker-position="['10','50']"  data-beatpicker-extra="customOptions" data-beatpicker-format="['YYYY','MM','DD'],separator:'/'" data-beatpicker-module="icon"></td>
+                        <td><input type="text" name="dateevaluation" placeholder="Date de l'évaluation" data-beatpicker="true" data-beatpicker-position="['10','50']"  data-beatpicker-extra="customOptions" data-beatpicker-format="['YYYY','MM','DD'],separator:'-'" data-beatpicker-module="icon"></td>
                     </tr>
                     <tr>
                         <td colspan="2">

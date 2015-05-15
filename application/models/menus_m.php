@@ -82,14 +82,4 @@ class Menus_m extends CI_Model {
                 group by nom;";
         return $this->getMap($sql);
     }
-    
-    
-
-    public function InsertEval($id_session, $id_module, $id_formateur, $date_effet) {
-        $sql = "INSERT INTO evaluation (id_module, id_session, id_formateur, date_effet)
-                VALUES ($id_session, $id_module, $id_formateur, $date_effet)";
-        $query = $this->db->query($sql);
-        return $query;
-    }
-
 }

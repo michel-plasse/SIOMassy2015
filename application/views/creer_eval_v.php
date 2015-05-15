@@ -1,11 +1,10 @@
 <html>
     <head>
         <title>Création d'une évaluation</title>
-        <link rel="stylesheet" type="text/css" href="/gestionmassy/items/css/allproject.css"/>
-    <link rel = "stylesheet" type = "text/css" href = "items/css/BeatPicker.min.css"/>
-    <!--  <script type="text/javascript" src="http://code.jquery.com/jquery-1.8.3.js"></script> -->
-        <script type="text/javascript" src = "items/js/jquery.1.8.3.js"></script>
-        <script type = "text/javascript" src = "items/js/BeatPicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="<?= $cssUrl ?>"/>
+        <link rel = "stylesheet" type = "text/css" href = "<?= $cssBPUrl ?>"/>
+        <script type="text/javascript" src = "<?= $biblioJSUrl ?>"></script>
+        <script type = "text/javascript" src = "<?= $jsBPUrl ?>"></script>
     </head>
 
     <body>
@@ -38,7 +37,7 @@
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <button type="submit">Valider</button>
+                            <button type="submit" name="insert_eval">Valider</button>
                             <button type="reset">Réinitialiser</button>
                         </td>
                     </tr>

@@ -2,45 +2,34 @@
 
 require_once "FormController.php";
 
-class Creer_eval extends FormController {
+class Creer_eval extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-    }
-
-    public function print_form() {
-        $this->load->model("Menus_m");
-        // Recuperer les sessions
-        $data["sessions"] = $this->Menus_m->getSessionsEnCours();
-        // Puis les modules de la session (si positionnée)
-//    $idSession = filter_input(INPUT_GET, "idSession");
-//    $data["modules"] = ($idSession == NULL)
-//            ? array()
-//            : $this->Menus_m->getModulesByIdSession($idSession);
-        // Modules (toutes formations confondues => a ameliorer)
-        $data["modules"] = $this->Menus_m->getModules();
-        // Puis les formateurs (peut-être à filtrer par module)
-        $data["formateurs"] = $this->Menus_m->getFormateurs();
-        // Afficher la vue en s'aidant du helper form
-        // (pour le form_dropdown)
-//        $this->load->helper('form');
-        $this->load->view('Creer_eval_v', $data);
-    }
-
-    public function process_form() {
         $this->load->model('menus_m');
-        $id_session = $this->input->post("id_session");
-        $id_module = $this->input->post("id_module");
-        $id_formateur = $this->input->post("id_formateur");
-        try {
-            $this->menu_m->InsertEval($id_session, $id_module, $id_formateur);
-        } catch (Exception $exc) {
-            die($exc->getCode());
+    }
+
+    public function index() {
+        if ($this->input->server('REQUEST_METHOD') == "GET") {
+            // Recuperer les sessions
+            $data["sessions"] = $this->menus_m->getSessionsEnCours();
+            // Modules (toutes formations confondues => a ameliorer)
+            $data["modules"] = $this->menus_m->getModules();
+            // Puis les formateurs (peut-être à filtrer par module)
+            $data["formateurs"] = $this->menus_m->getFormateurs();
+            $data["cssUrl"] = base_url("items/css/allproject.css");
+            $data["cssBPUrl"] = base_url("items/css/BeatPicker.min.css");
+            $data["jsBPUrl"] = base_url("items/js/BeatPicker.min.js");
+            $data["biblioJSUrl"] = base_url("items/js/jquery.1.8.3.js");
+            // Afficher la vue en s'aidant du helper form
+            // (pour le form_dropdown)
+            $this->load->view('creer_eval_v', $data);
+        } else {
+            if (isset($_POST['insert_eval'])) {
+                Creer_eval_m::insert($_POST);
+                redirect(uri_string());
+            }
         }
-        redirect(current_url());
-
-
-        //die("pas encore fait");
     }
 
 }

@@ -96,68 +96,106 @@ footer p {
     width: 100%
 }
 
+#liste_bilans h1 {
+    text-align: center;
+    font-size: 35px;
+}
+
+#bilans {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+}
+
+#bilans form {
+    float: right;
+    width: 350px;
+    margin: 0% 33.4% 0% 0%;
+}
+
+#bilans dt {
+    float: left;
+    width: 250px;
+    margin: 0% 0% 0% 35%;
+}
+
+#bilans dd {
+    float: left;
+    width: 150px;
+    margin: 0% 50% 0% 35%;
+}
+
+#bilans .date {
+    float : left;
+}
+
+#bilans .date_picker {
+    float: left;
+    text-indent: 5px;
+    font-size: 20px;
+    margin: 0% 1%;
+    width: 150px;
+}
+
+#bilans .bouton_dp {
+    float: left;
+    font-size: 18px;
+    width: 100px;
+}
+
 /************************* PAGE BULLETIN_NOTES *************************/
+
+#section_bulletin {
+    float : left;
+    width: 100%;
+}
 
 #bulletin {
     float : left;
     width : 100%;
     height: 140px;
-    position : relative;
-}
-
-#bulletin img {
-    width : 25%;
-    height: auto;
-    position : absolute;
-    top: 10px;
-    left : 1%;
 }
 
 #bulletin #diplome {
-    position : absolute;
-    top : 10px;
-    left : 40%;
-    font-size: 2vw;
+    font-size: 40px;
+    width: 22.2%;
+    margin: 0% 0% 0% 38%;
 }
 
 #bulletin #annee {
-    position : absolute;
-    top : 50px;
-    left : 30%;
-    font-size: 1.2vw;
+    font-size: 23px;
+    width: 7%;
+    float: left;
+    margin: 0% 0% 0% 18%;
 }
 
-#bulletin #semestre {
+#bulletin #date_conseil {
+    font-size: 23px;
     width: 20%;
-    position : absolute;
-    top : 75px;
-    left : 30%;
-    font-size: 1.2vw;
-}
-
-#bulletin #semestre input {
-    font-size: 1.2vw;
-    margin: 0% 0% 0% 2%;
+    float: left;
+    margin: 0% 0% 0% 18%;
 }
 
 #bulletin #nom {
-    position : absolute;
-    top : 50px;
-    left : 60%;
-    font-size: 1.2vw;
+    font-size: 23px;
+    width: 20%;
+    height: 20%;
+    float: left;
+    margin: 0% 0% 0% 38%;
 }
 
 #bulletin #date {
-    position : absolute;
-    top : 75px;
-    left : 60%;
-    font-size: 1.2vw;
+    font-size: 23px;
+    width: 20%;
+    height: 20%;
+    float: left;
+    margin: 0% 0% 0% 25%;
 }
 
 #notes {
     width : 98%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 14px;
     margin: 1%;
 }
 
@@ -179,7 +217,32 @@ footer p {
 }
 
 #notes #commentaire {
+    width : 35%;
+}
 
+#notes #bouton_com {
+    width: 15.8%;
+    height: 35px;
+    float: right;
+    margin: 0.3% 0.3% 0% 0%;
+    font-size: 14px;
+}
+
+#notes #ta_com {
+    margin: 0.3% 0% 0% 0.3%;
+    font-size: 14px;
+}
+
+#notes #body_matiere {
+    padding: 0% 0% 0% 0.5%;
+}
+
+#notes #body_formateur {
+    padding: 0% 0% 0% 0.5%;
+}
+
+#notes .body_notes {
+    text-align: center;
 }
 
 #notes .moyenne {
@@ -187,18 +250,43 @@ footer p {
     width: 8%;
 }
 
-#appréciation {
+#appreciation {
+    float : left;
     border-collapse: collapse;
-    font-size: 1vw;
+    font-size: 18px;
     margin: 1%;
-    width: 50%;
+    width: 38%;
+}
+
+#appreciation td, th {
+    border: 1px solid black;
+}
+
+#appreciation #ta_app {
+    margin: 0.3% 0% 0% 0.3%;
+    font-size: 14px;
+}
+
+#appreciation #bouton_app {
+    width: 12.4%;
+    height: 35px;
+    float: right;
+    margin: 8% 0.3% 0% 0%;
+    font-size: 14px;
 }
 
 #signature {
+    float: right;
     border-collapse: collapse;
-    font-size: 1vw;
-    margin: 1%;
+    font-size: 18px;
+    margin: 1% 10% 1% 10%;
     width: 20%;
-    position: absolute;
-    left: 48.1%;
+}
+
+#signature td, th {
+    border: 1px solid black;
+}
+
+#signature #bloc {
+    height: 155px;
 }

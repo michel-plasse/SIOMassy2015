@@ -18,8 +18,6 @@ class Bilans extends CI_Controller {
             $this->load->view('bilans_v', $data);
         } else {
             // valider les données
-            // Charge les outils pour les formulaires
-            $this->load->library('form_validation');
             // Etablit les règles
             $this->form_validation->set_rules('id_session', 'ID session', 'required|integer');
             $this->form_validation->set_rules('date', 'date', 'required');

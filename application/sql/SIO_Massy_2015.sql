@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS etat_candidature $$
 DROP TABLE IF EXISTS evaluation $$
 DROP TABLE IF EXISTS formateur $$
 DROP TABLE IF EXISTS formation $$
+DROP TABLE IF EXISTS intervenant $$
 DROP TABLE IF EXISTS ligne_bulletin $$
 DROP TABLE IF EXISTS module $$
 DROP TABLE IF EXISTS module_formation $$
@@ -439,7 +440,7 @@ CREATE VIEW stagiaire AS
         date_effet AS date_candidature,
         motivation
     FROM candidature c
-		INNER JOIN personne p 
+		INNER JOIN personne p
 			ON p.id_personne = c.id_personne
     WHERE id_etat_candidature = 5 $$
 
@@ -450,8 +451,8 @@ CREATE VIEW bulletin_note AS
 	SELECT formation.nom AS diplome,
 			YEAR(session.date_fin) AS annee,
 			stagiaire.id_stagiaire,
-			stagiaire.prenom AS prenom_stagiaire, 
-			stagiaire.nom AS nom_stagiaire, 
+			stagiaire.prenom AS prenom_stagiaire,
+			stagiaire.nom AS nom_stagiaire,
 			stagiaire.date_naissance,
 			stagiaire.id_session,
 			module.id_module,
@@ -492,12 +493,12 @@ CREATE VIEW bulletin_note AS
 		INNER JOIN session
 			ON stagiaire.id_session = session.id_session
 		WHERE evaluation.date_effet <= bilan.date_effet
-			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01') 
+			AND evaluation.date_effet > IFNULL((SELECT MAX(b2.date_effet) FROM bilan b2 WHERE b2.id_session = stagiaire.id_session AND b2.date_effet < bilan.date_effet), '1900-01-01')
 	GROUP BY formation.nom,
 			YEAR(session.date_fin),
 			stagiaire.id_stagiaire,
-			stagiaire.prenom, 
-			stagiaire.nom, 
+			stagiaire.prenom,
+			stagiaire.nom,
 			stagiaire.date_naissance,
 			stagiaire.id_session,
 			module.id_module,
@@ -627,10 +628,137 @@ BEGIN
 
   INSERT INTO evaluation
   (id_evaluation, id_module, id_session, id_formateur, date_effet) VALUES
-  (1, 1, 1, 5, '2014-11-01'),
-  (2, 13, 1, 4, '2015-03-24'),
-  (3, 3, 1, 6, '2015-04-10'),
-  (4, 10, 1, 22, '2015-03-27');
+  (25, 2, 1, 7, '2015-01-01'),
+  (31, 2, 1, 7, '2015-03-04'),
+  (41, 2, 1, 7, '2014-08-01'),
+  (42, 2, 1, 7, '2014-11-01'),
+  (26, 3, 1, 6, '2015-01-01'),
+  (32, 3, 1, 6, '2015-03-04'),
+  (43, 3, 1, 6, '2014-08-01'),
+  (44, 3, 1, 6, '2014-11-01'),
+  (27, 10, 1, 22, '2015-01-01'),
+  (33, 10, 1, 22, '2015-03-04'),
+  (45, 10, 1, 22, '2014-08-01'),
+  (46, 10, 1, 22, '2014-11-01'),
+  (28, 11, 1, 23, '2015-01-01'),
+  (34, 11, 1, 23, '2015-03-04'),
+  (37, 11, 1, 24, '2015-01-01'),
+  (38, 11, 1, 24, '2015-03-04'),
+  (47, 11, 1, 23, '2014-08-01'),
+  (48, 11, 1, 23, '2014-11-01'),
+  (49, 11, 1, 24, '2014-08-01'),
+  (50, 11, 1, 24, '2014-11-01'),
+  (29, 12, 1, 7, '2015-01-01'),
+  (35, 12, 1, 7, '2015-03-04'),
+  (51, 12, 1, 7, '2014-08-01'),
+  (52, 12, 1, 7, '2014-11-01'),
+  (30, 13, 1, 4, '2015-01-01'),
+  (36, 13, 1, 4, '2015-03-04'),
+  (39, 13, 1, 26, '2015-01-01'),
+  (40, 13, 1, 26, '2015-03-04'),
+  (53, 13, 1, 4, '2014-08-01'),
+  (54, 13, 1, 4, '2014-11-01'),
+  (55, 13, 1, 26, '2014-08-01'),
+  (56, 13, 1, 26, '2014-11-01');
+
+  INSERT INTO note
+  (id_evaluation, id_stagiaire, note) VALUES
+  (56, 1, 10.0),
+  (56, 2, 11.0),
+  (56, 3, 12.0),
+  (55, 1, 7.0),
+  (55, 2, 8.0),
+  (55, 3, 9.0),
+  (54, 1, 4.0),
+  (54, 2, 5.0),
+  (54, 3, 6.0),
+  (53, 1, 1.0),
+  (53, 2, 2.0),
+  (53, 3, 3.0),
+  (52, 1, 18.0),
+  (52, 2, 19.0),
+  (52, 3, 20.0),
+  (51, 1, 15.0),
+  (51, 2, 16.0),
+  (51, 3, 17.0),
+  (50, 1, 12.0),
+  (50, 2, 13.0),
+  (50, 3, 14.0),
+  (49, 1, 9.0),
+  (49, 2, 10.0),
+  (49, 3, 11.0),
+  (48, 1, 6.0),
+  (48, 2, 7.0),
+  (48, 3, 8.0),
+  (47, 1, 19.0),
+  (47, 2, 20.0),
+  (47, 3, 5.0),
+  (46, 1, 16.0),
+  (46, 2, 17.0),
+  (46, 3, 18.0),
+  (45, 1, 13.0),
+  (45, 2, 14.0),
+  (45, 3, 15.0),
+  (44, 1, 10.0),
+  (44, 2, 11.0),
+  (44, 3, 12.0),
+  (43, 1, 7.0),
+  (43, 2, 8.0),
+  (43, 3, 9.0),
+  (42, 1, 4.0),
+  (42, 2, 5.0),
+  (42, 3, 6.0),
+  (41, 1, 1.0),
+  (41, 2, 2.0),
+  (41, 3, 3.0),
+  (40, 1, 6.0),
+  (40, 2, 7.0),
+  (40, 3, 8.0),
+  (39, 1, 3.0),
+  (39, 2, 4.0),
+  (39, 3, 5.0),
+  (38, 1, 20.0),
+  (38, 2, 1.0),
+  (38, 3, 2.0),
+  (37, 1, 17.0),
+  (37, 2, 18.0),
+  (37, 3, 19.0),
+  (36, 1, 14.0),
+  (36, 2, 15.0),
+  (36, 3, 16.0),
+  (35, 1, 11.0),
+  (35, 2, 12.0),
+  (35, 3, 13.0),
+  (34, 1, 8.0),
+  (34, 2, 9.0),
+  (34, 3, 10.0),
+  (33, 1, 5.0),
+  (33, 2, 6.0),
+  (33, 3, 7.0),
+  (32, 1, 2.0),
+  (32, 2, 3.0),
+  (32, 3, 4.0),
+  (31, 1, 19.0),
+  (31, 2, 20.0),
+  (31, 3, 1.0),
+  (30, 1, 16.0),
+  (30, 2, 17.0),
+  (30, 3, 18.0),
+  (29, 1, 13.0),
+  (29, 2, 14.0),
+  (29, 3, 15.0),
+  (28, 1, 10.0),
+  (28, 2, 11.0),
+  (28, 3, 12.0),
+  (27, 1, 7.0),
+  (27, 2, 8.0),
+  (27, 3, 9.0),
+  (26, 1, 4.0),
+  (26, 2, 5.0),
+  (26, 3, 6.0),
+  (25, 1, 1.0),
+  (25, 2, 2.0),
+  (25, 3, 3.0);
 
   INSERT INTO etat_candidature
   (id_etat_candidature, libelle) VALUES
@@ -676,7 +804,7 @@ END$$
 
 /* Insère une note ou la met à jour */
 DROP PROCEDURE IF EXISTS insert_update_note$$
-CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_note DECIMAL(3,1)) 
+CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_note DECIMAL(3,1))
  BEGIN
 	DECLARE v_note DECIMAL(3,1);
     SELECT note INTO v_note
@@ -685,7 +813,7 @@ CREATE PROCEDURE insert_update_note(p_id_evaluation INT, p_id_stagiaire INT, p_n
     IF v_note IS NULL THEN
 		-- inserer
         INSERT INTO note (id_evaluation, id_stagiaire, note)
-        VALUES (p_id_evaluation, p_id_stagiaire, p_note);	
+        VALUES (p_id_evaluation, p_id_stagiaire, p_note);
 	ELSE
 		-- mettre a jour
         UPDATE note
@@ -801,15 +929,15 @@ BEGIN
     DECLARE v_id_module INT;
     DECLARE v_id_formateur INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur 
-                                FROM bulletin 
-                                INNER JOIN bilan 
-                                    ON bulletin.id_bilan = bilan.id_bilan 
-                                INNER JOIN session 
-                                    ON bilan.id_session = session.id_session 
-                                INNER JOIN intervenant 
-                                    ON session.id_session = intervenant.id_session 
-                                WHERE bulletin.id_bilan = NEW.id_bilan 
+    DECLARE v_lignes CURSOR FOR SELECT intervenant.id_module, intervenant.id_formateur
+                                FROM bulletin
+                                INNER JOIN bilan
+                                    ON bulletin.id_bilan = bilan.id_bilan
+                                INNER JOIN session
+                                    ON bilan.id_session = session.id_session
+                                INNER JOIN intervenant
+                                    ON session.id_session = intervenant.id_session
+                                WHERE bulletin.id_bilan = NEW.id_bilan
                                 AND bulletin.id_stagiaire = NEW.id_stagiaire;
     OPEN v_lignes;
     BEGIN
@@ -830,8 +958,8 @@ FOR EACH ROW
 BEGIN
     DECLARE v_id_stagiaire INT;
     DECLARE v_termine BOOLEAN DEFAULT FALSE;
-    DECLARE v_lignes CURSOR FOR SELECT id_stagiaire 
-                                FROM stagiaire 
+    DECLARE v_lignes CURSOR FOR SELECT id_stagiaire
+                                FROM stagiaire
                                 WHERE id_session = NEW.id_session;
     OPEN v_lignes;
     BEGIN

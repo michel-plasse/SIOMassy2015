@@ -794,8 +794,8 @@ BEGIN
 
   INSERT INTO bilan
   (id_bilan, id_session, date_effet) VALUES
-  (1, 1, 2014-11-14),
-  (2, 1, 2015-04-15);
+  (1, 1, '2014-11-14'),
+  (2, 1, '2015-04-15');
 
   COMMIT;
 END$$

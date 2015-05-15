@@ -27,10 +27,6 @@ class Creer_eval extends CI_Controller {
             $this->load->view('creer_eval_v', $data);
         } else {
             if (isset($_POST['insert_eval'])) {
-//                $data["cssUrl"] = base_url("items/css/allproject.css");
-//                $data["cssBPUrl"] = base_url("items/css/BeatPicker.min.css");
-//                $data["jsBPUrl"] = base_url("items/js/BeatPicker.min.js");
-//                $data["biblioJSUrl"] = base_url("items/js/jquery.1.8.3.js");
                 $this->load->view('creer_eval_v', $data);
                 Creer_eval_m::insert($_POST);
                 redirect(uri_string());
